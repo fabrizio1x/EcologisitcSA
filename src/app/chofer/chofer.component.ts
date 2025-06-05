@@ -55,7 +55,7 @@ export class ChoferComponent implements OnInit, OnDestroy {
       error: () => {
         this.pedidos = [];
         this.loading = false;
-      }
+    }
     });
   }
 
@@ -150,7 +150,7 @@ export class ChoferComponent implements OnInit, OnDestroy {
       case 'entregado': return 'Entregado';
       case 'cancelado': return 'Cancelado';
       default: return estado.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-    }
+  }
   }
 
   getMarkerIcon(pedido: Pedido): L.Icon {

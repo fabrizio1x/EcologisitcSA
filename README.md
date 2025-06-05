@@ -58,15 +58,12 @@ ionic build --prod
 ## 🤝 Contribuciones
 ¡Las contribuciones son bienvenidas! Por favor, abre un issue o un pull request para sugerencias o mejoras. Consulta la [guía de contribución](CONTRIBUTING.md).
 
+## ⚖️ Licencia
+Este proyecto está bajo la licencia [MIT](LICENSE).
+
 ## ⚠️ Notas de seguridad
 - **No subas tus archivos `environment.ts` ni `environment.prod.ts` a ningún repositorio público.**
 - Este proyecto incluye archivos de ejemplo y un instructivo para conectar tu propio backend de Firebase.
-
-## 📸 Capturas de pantalla
-_Agrega aquí tus imágenes o GIFs de la app en funcionamiento_
-
-## ⚖️ Licencia
-Este proyecto está bajo la licencia [MIT](LICENSE).
 
 ---
 

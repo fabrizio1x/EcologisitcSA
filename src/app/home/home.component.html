@@ -1,0 +1,101 @@
+<app-base-layout>
+  <div class="page-container">
+    <header class="header">
+      <div class="logo-container">
+        <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+        <span class="company-name">Ecologistic</span>
+      </div>
+      <div class="header-buttons">
+        <ng-container *ngIf="!(currentUser$ | async)">
+      <button class="login-button" (click)="navigateToLogin()">
+            <span class="login-text">Iniciar Sesión</span>
+        <ion-icon name="log-in-outline"></ion-icon>
+      </button>
+        </ng-container>
+        <ng-container *ngIf="currentUser$ | async as user">
+          <button class="nav-button" (click)="navigateToUserPanel()">
+            <ion-icon [name]="user.role === 'cliente' ? 'cube-outline' : 'grid-outline'"></ion-icon>
+            <span>{{ buttonText$ | async }}</span>
+          </button>
+          <button class="logout-button" (click)="logout()">
+            <span class="logout-text">Cerrar Sesión</span>
+            <ion-icon name="log-out-outline"></ion-icon>
+          </button>
+        </ng-container>
+      </div>
+    </header>
+
+    <main class="content-container">
+      <div class="welcome-section">
+        <h1>Bienvenido a Ecologistic</h1>
+        <h2 class="slogan">Transporte inteligente, ecológico y en tiempo real.</h2>
+        <div class="years-badge">10 años conectando Chile con eficiencia y sostenibilidad.</div>
+      </div>
+
+      <div class="services-section">
+        <div class="services-image-container">
+          <img src="assets/images/EcologisticSA.png" alt="Ecologistic Transporte" class="services-image">
+        </div>
+
+        <div class="services-content">
+          <div class="title-container">
+            <h2 class="services-title">¡Llegamos donde nos necesites! <span class="box-emoji">📦</span></h2>
+          </div>
+          <p class="services-subtitle">Más de 50 vehículos eléctricos ⚡ Listos para tu próximo envío</p>
+          
+          <div class="services-buttons">
+            <button class="service-button secondary" routerLink="/cotizar">
+              <ion-icon name="calculator-outline"></ion-icon>
+              <span>Cotizar Despacho</span>
+            </button>
+            <button class="service-button secondary" routerLink="/solicitar-despacho">
+              <ion-icon name="cube-outline"></ion-icon>
+              <span>Solicitar Despacho</span>
+            </button>
+          </div>
+
+          <div class="tracking-section">
+            <div class="tracking-input">
+              <ion-icon name="search-outline"></ion-icon>
+              <input type="text" 
+                     [(ngModel)]="numeroSeguimiento" 
+                     (keyup.enter)="buscarPedido()"
+                     placeholder="Ingresa tu N° de seguimiento">
+              <div class="error-tooltip" *ngIf="tooltipVisible">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <span>{{ tooltipText }}</span>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <button class="tracking-button">
+                <ion-icon name="location-outline"></ion-icon>
+                <span>Puntos Ecologistic</span>
+                <div class="tooltip">
+                  <div class="tooltip-content">
+                    <p><strong>Casa Matriz:</strong> Santiago Centro</p>
+                    <p><strong>Sucursales:</strong> Temuco - Valparaíso</p>
+                  </div>
+                </div>
+              </button>
+              <button class="tracking-button">
+                <ion-icon name="help-circle-outline"></ion-icon>
+                <span>Centro de ayuda</span>
+                <div class="tooltip">
+                  <div class="tooltip-content">
+                    <p><strong>WhatsApp:</strong> <a href="https://wa.me/56912345678" target="_blank" rel="noopener">+569 1234 5678</a></p>
+                    <p><strong>Horario:</strong> 9:00 - 18:00 (L-V)</p>
+                    <p><strong>Email:</strong> <a href="mailto:ayuda@ecologistic.cl">ayuda&#64;ecologistic.cl</a></p>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
+    </footer>
+  </div>
+</app-base-layout> 

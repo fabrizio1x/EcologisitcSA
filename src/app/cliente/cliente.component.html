@@ -1,0 +1,117 @@
+<div class="page-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <img src="assets/images/leaf-logo.png" alt="Ecologistic" class="logo">
+        <div class="header-text">
+          <h1>Ecologistic • Clientes</h1>
+          <p>Transporte ecológico con tecnología avanzada</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <a (click)="irAlInicio()" class="nav-link">
+          <ion-icon name="home-outline"></ion-icon>
+          Inicio
+        </a>
+        <button class="nav-link" (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          Cerrar sesión
+        </button>
+        </div>
+        </div>
+  </header>
+
+  <!-- Content -->
+  <div class="content-container">
+    <!-- Pedidos Activos -->
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <ion-icon name="cube-outline"></ion-icon>
+          Pedidos Activos
+        </h2>
+      </div>
+
+      <div class="pedidos-grid">
+        <ng-container *ngIf="pedidosActivos$ | async as pedidos; else loading">
+          <div *ngIf="pedidos.length === 0" class="empty-state">
+            <ion-icon name="cube-outline" class="pulse-icon"></ion-icon>
+            <p>No tienes pedidos activos en este momento</p>
+            <button class="nuevo-pedido-button" routerLink="/solicitar-despacho">
+              <ion-icon name="add-circle-outline"></ion-icon>
+              Crear Nuevo Pedido
+            </button>
+          </div>
+          
+          <div *ngIf="pedidos.length > 0" class="pedidos-list">
+            <div *ngFor="let pedido of pedidos" class="pedido-card" (click)="copiarYVerDetalle(pedido)">
+              <div class="pedido-header">
+                <span class="numero-seguimiento">
+                  <ion-icon name="barcode-outline"></ion-icon>
+                  {{pedido.numeroSeguimiento}}
+                </span>
+                <span class="estado" [ngClass]="'estado-' + pedido.estado">
+                  <ion-icon name="ellipse"></ion-icon>
+                  {{getEstadoTexto(pedido.estado)}}
+                </span>
+              </div>
+              <div class="pedido-content">
+                <div class="info-row">
+                  <ion-icon name="navigate-outline"></ion-icon>
+                  <div class="info-text">
+                    <span>{{pedido.origen.comuna}} → {{pedido.destino.comuna}}</span>
+                  </div>
+                </div>
+                <div class="info-row">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <div class="info-text">
+                    <span>{{pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </div>
+                </div>
+                <div class="info-row">
+                  <ion-icon name="cube-outline" slot="start"></ion-icon>
+                  <ion-label>
+                    <h2>Detalles del Paquete</h2>
+                    <p>
+                      <span>{{pedido.datosPaquete.descripcion || 'Sin descripción'}} - {{pedido.datosPaquete.tamano}}</span>
+                    </p>
+                  </ion-label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        
+        <ng-template #loading>
+          <div class="loading-state">
+            <ion-spinner name="crescent"></ion-spinner>
+            <p>Cargando pedidos...</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Nuevo Pedido -->
+    <div class="nuevo-pedido-section">
+      <h2 class="section-title">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        Crear Pedido
+      </h2>
+      <button class="nuevo-pedido-button-full" routerLink="/solicitar-despacho">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        Solicitar Nuevo Pedido
+      </button>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip" *ngIf="tooltipVisible" [style.opacity]="tooltipVisible ? 1 : 0">
+      {{tooltipText}}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
+  </footer>
+</div> 

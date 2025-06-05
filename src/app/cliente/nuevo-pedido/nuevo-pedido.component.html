@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Nuevo Pedido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="pedidoForm" (ngSubmit)="onSubmit()">
+    <!-- Origen -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="location-outline"></ion-icon>
+          Origen
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content formGroupName="origen">
+        <ion-item>
+          <ion-label position="floating">Región</ion-label>
+          <ion-select formControlName="region">
+            <ion-select-option *ngFor="let region of regiones" [value]="region">
+              {{region}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('origen.region')?.touched && pedidoForm.get('origen.region')?.errors?.['required']">
+          <p class="ion-padding-start">La región es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Comuna</ion-label>
+          <ion-select formControlName="comuna" [disabled]="!pedidoForm.get('origen.region')?.value">
+            <ion-select-option *ngFor="let comuna of getComunas(pedidoForm.get('origen.region')?.value)" [value]="comuna">
+              {{comuna}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('origen.comuna')?.touched && pedidoForm.get('origen.comuna')?.errors?.['required']">
+          <p class="ion-padding-start">La comuna es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input formControlName="direccion" type="text"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('origen.direccion')?.touched && pedidoForm.get('origen.direccion')?.errors?.['required']">
+          <p class="ion-padding-start">La dirección es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Referencias (opcional)</ion-label>
+          <ion-textarea formControlName="referencias" rows="2"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Destino -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="flag-outline"></ion-icon>
+          Destino
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content formGroupName="destino">
+        <ion-item>
+          <ion-label position="floating">Región</ion-label>
+          <ion-select formControlName="region">
+            <ion-select-option *ngFor="let region of regiones" [value]="region">
+              {{region}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('destino.region')?.touched && pedidoForm.get('destino.region')?.errors?.['required']">
+          <p class="ion-padding-start">La región es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Comuna</ion-label>
+          <ion-select formControlName="comuna" [disabled]="!pedidoForm.get('destino.region')?.value">
+            <ion-select-option *ngFor="let comuna of getComunas(pedidoForm.get('destino.region')?.value)" [value]="comuna">
+              {{comuna}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('destino.comuna')?.touched && pedidoForm.get('destino.comuna')?.errors?.['required']">
+          <p class="ion-padding-start">La comuna es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Dirección</ion-label>
+          <ion-input formControlName="direccion" type="text"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('destino.direccion')?.touched && pedidoForm.get('destino.direccion')?.errors?.['required']">
+          <p class="ion-padding-start">La dirección es requerida</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Referencias (opcional)</ion-label>
+          <ion-textarea formControlName="referencias" rows="2"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Detalles del Paquete -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="cube-outline"></ion-icon>
+          Detalles del Paquete
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Tamaño del Paquete</ion-label>
+          <ion-select formControlName="tamanoPaquete">
+            <ion-select-option *ngFor="let tamano of tamanosPaquete" [value]="tamano">
+              {{tamano}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('tamanoPaquete')?.touched && pedidoForm.get('tamanoPaquete')?.errors?.['required']">
+          <p class="ion-padding-start">El tamaño del paquete es requerido</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Peso (kg)</ion-label>
+          <ion-input formControlName="peso" type="number" min="0"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('peso')?.touched && pedidoForm.get('peso')?.errors">
+          <p class="ion-padding-start" *ngIf="pedidoForm.get('peso')?.errors?.['required']">
+            El peso es requerido
+          </p>
+          <p class="ion-padding-start" *ngIf="pedidoForm.get('peso')?.errors?.['min']">
+            El peso debe ser mayor a 0
+          </p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea formControlName="descripcion" rows="3"></ion-textarea>
+        </ion-item>
+        <ion-text color="danger" *ngIf="pedidoForm.get('descripcion')?.touched && pedidoForm.get('descripcion')?.errors">
+          <p class="ion-padding-start" *ngIf="pedidoForm.get('descripcion')?.errors?.['required']">
+            La descripción es requerida
+          </p>
+          <p class="ion-padding-start" *ngIf="pedidoForm.get('descripcion')?.errors?.['minlength']">
+            La descripción debe tener al menos 10 caracteres
+          </p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label>¿Es frágil?</ion-label>
+          <ion-toggle formControlName="fragil"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>¿Requiere embalaje especial?</ion-label>
+          <ion-toggle formControlName="requiereEmbalaje"></ion-toggle>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" type="submit" [disabled]="pedidoForm.invalid" class="ion-margin">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Crear Pedido
+    </ion-button>
+  </form>
+</ion-content>

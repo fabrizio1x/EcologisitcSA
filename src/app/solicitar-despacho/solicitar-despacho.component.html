@@ -1,0 +1,251 @@
+<div class="page-container">
+  <header class="header">
+    <div class="logo-section">
+      <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+      <div class="brand-text">
+        <span class="brand">Ecologistic S.A.</span>
+        <span class="slogan">Transporte ecológico con tecnología avanzada</span>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a routerLink="/" class="active">
+        <ion-icon name="home-outline"></ion-icon>
+        Inicio
+      </a>
+    </nav>
+  </header>
+
+  <div class="content-container">
+    <div class="form-section">
+      <h1>Solicitar Despacho</h1>
+      
+      <form [formGroup]="despachoForm" (ngSubmit)="onSubmit()" class="despacho-form">
+        <!-- Alerta de campos faltantes -->
+        <div class="campos-faltantes" *ngIf="camposFaltantes.length > 0">
+          <h4>
+            <ion-icon name="warning-outline"></ion-icon>
+            Campos pendientes por completar:
+          </h4>
+          <ul>
+            <li *ngFor="let campo of camposFaltantes">{{campo}}</li>
+          </ul>
+        </div>
+        
+        <!-- Datos Personales -->
+        <div class="form-card" formGroupName="datosPersonales">
+          <h2>
+            <ion-icon name="person-outline"></ion-icon>
+            Datos Personales
+          </h2>
+          
+          <div class="form-group">
+            <label>
+              <ion-icon name="person"></ion-icon>
+              Nombre completo
+            </label>
+            <input type="text" formControlName="nombre" placeholder="Ingrese su nombre completo">
+            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.nombre')?.touched && despachoForm.get('datosPersonales.nombre')?.invalid">
+              {{getErrorMessage(despachoForm.get('datosPersonales.nombre'), 'nombre')}}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="mail"></ion-icon>
+              Correo Electrónico
+            </label>
+            <input type="email" formControlName="email" placeholder="correo@ejemplo.com">
+            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.email')?.touched && despachoForm.get('datosPersonales.email')?.invalid">
+              {{getErrorMessage(despachoForm.get('datosPersonales.email'), 'email')}}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="call"></ion-icon>
+              Teléfono
+            </label>
+            <input type="tel" formControlName="telefono" placeholder="987654321">
+            <span class="helper-text">Ingrese un número de teléfono de 9 dígitos para contacto</span>
+            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.telefono')?.touched && despachoForm.get('datosPersonales.telefono')?.invalid">
+              {{getErrorMessage(despachoForm.get('datosPersonales.telefono'), 'teléfono')}}
+            </span>
+          </div>
+        </div>
+
+        <!-- Dirección de Retiro -->
+        <div class="form-card" formGroupName="direccionRetiro">
+          <h2>
+            <ion-icon name="location-outline"></ion-icon>
+            Dirección de Retiro
+          </h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>
+                <ion-icon name="map"></ion-icon>
+                Región
+              </label>
+              <select formControlName="region" class="custom-select">
+                <option value="" disabled selected>Seleccione una región</option>
+                <option *ngFor="let region of regiones" [value]="region">{{region}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>
+                <ion-icon name="location"></ion-icon>
+                Comuna
+              </label>
+              <select formControlName="comuna" class="custom-select">
+                <option value="" disabled selected>Seleccione una comuna</option>
+                <option *ngFor="let comuna of getComunas(despachoForm.get('direccionRetiro.region')?.value)" 
+                        [value]="comuna.nombre">{{comuna.nombre}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="home"></ion-icon>
+              Dirección
+            </label>
+            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="information-circle"></ion-icon>
+              Referencias (opcional)
+            </label>
+            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación"></textarea>
+          </div>
+        </div>
+
+        <!-- Dirección de Entrega -->
+        <div class="form-card" formGroupName="direccionEntrega">
+          <h2>
+            <ion-icon name="location-outline"></ion-icon>
+            Dirección de Entrega
+          </h2>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Región</label>
+              <select formControlName="region">
+                <option value="">Seleccione una región</option>
+                <option *ngFor="let region of regiones" [value]="region">{{region}}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Comuna</label>
+              <select formControlName="comuna">
+                <option value="">Selecciona una comuna</option>
+                <optgroup *ngFor="let region of regiones" [label]="region">
+                  <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
+                    {{comuna.nombre}}
+                  </option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="home"></ion-icon>
+              Dirección
+            </label>
+            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa">
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="information-circle"></ion-icon>
+              Referencias (opcional)
+            </label>
+            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación"></textarea>
+          </div>
+        </div>
+
+        <!-- Datos del Paquete -->
+        <div class="form-card" formGroupName="datosPaquete">
+          <h2>
+            <ion-icon name="cube-outline"></ion-icon>
+            Datos del Paquete
+          </h2>
+
+          <div class="tamano-selector">
+            <label>Tamaño del paquete</label>
+            <div class="tamano-options">
+              <div *ngFor="let tamano of tamanoPaquetes" 
+                   class="tamano-option" 
+                   [class.selected]="despachoForm.get('datosPaquete.tamano')?.value === tamano.id"
+                   (click)="despachoForm.get('datosPaquete.tamano')?.setValue(tamano.id)">
+                <span class="tamano-icon">{{tamano.icono}}</span>
+                <h3>{{tamano.nombre}}</h3>
+                <p>{{tamano.descripcion}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="scale"></ion-icon>
+              Peso (Kg)
+            </label>
+            <input type="number" formControlName="peso" placeholder="Ingrese el peso en kilogramos" step="0.1">
+            <span class="error-message" *ngIf="despachoForm.get('datosPaquete.peso')?.touched && despachoForm.get('datosPaquete.peso')?.invalid">
+              {{getErrorMessage(despachoForm.get('datosPaquete.peso'), 'peso')}}
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <ion-icon name="document-text"></ion-icon>
+              Descripción del contenido
+            </label>
+            <textarea formControlName="descripcion" placeholder="Describa el contenido del paquete"></textarea>
+          </div>
+
+          <div class="form-row checkboxes">
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" formControlName="fragil">
+                <span>Frágil</span>
+                <ion-icon name="warning"></ion-icon>
+              </label>
+            </div>
+
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" formControlName="requiereEmbalaje">
+                <span>Requiere embalaje</span>
+                <ion-icon name="cube"></ion-icon>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-button" [class.not-authenticated]="!currentUser">
+          <ion-icon [name]="currentUser ? 'paper-plane' : 'log-in'"></ion-icon>
+          {{ currentUser ? 'Solicitar Despacho' : 'Iniciar Sesión para Continuar' }}
+        </button>
+
+        <!-- Progreso del formulario -->
+        <div class="form-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(despachoForm.valid ? 100 : 0)"></div>
+          </div>
+          <span class="progress-text">
+            {{despachoForm.valid ? 'Formulario completo' : 'Complete todos los campos requeridos'}}
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer">
+    © 2025 Ecologistic S.A. Todos los derechos reservados.
+  </footer>
+</div> 

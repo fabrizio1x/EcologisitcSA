@@ -1,0 +1,230 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #003828 0%, #001a12 100%);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.login-container {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  padding-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.background-image {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background-image: url('/assets/images/truck-logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 250px;
+  z-index: 3;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.login-box {
+  background: white;
+  padding: 30px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+  margin-top: 120px;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+}
+
+h2 {
+  text-align: center;
+  color: var(--ion-color-dark);
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 8px;
+  background: #E2E8F0;
+  border: none;
+  border-radius: 8px;
+
+  ion-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748B;
+    font-size: 20px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 12px 14px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #E2E8F0 !important;
+    color: #64748B;
+    -webkit-appearance: none;
+    appearance: none;
+
+    &:focus {
+      outline: none;
+      background-color: #E2E8F0 !important;
+    }
+
+    &:autofill,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: #64748B;
+      -webkit-box-shadow: 0 0 0px 1000px #E2E8F0 inset;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    &::placeholder {
+      color: #64748B;
+    }
+  }
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 12px;
+  margin-top: 4px;
+  padding-left: 12px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #5c9474;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  &:hover:not(:disabled) {
+    background-color: #4b7b5c;
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  ion-spinner {
+    color: white;
+  }
+}
+
+.additional-options {
+  margin-top: 24px;
+  text-align: center;
+
+  .forgot-password {
+    color: #64748B;
+    text-decoration: none;
+    font-size: 14px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .register-link {
+    margin-top: 12px;
+    color: #64748B;
+    font-size: 14px;
+
+    .register-link-green {
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .home-link {
+    margin-top: 12px;
+    
+    .home-link-green {
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      ion-icon {
+        font-size: 18px;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.footer-text {
+  text-align: center;
+  color: #94A3B8;
+  font-size: 13px;
+  margin-top: 24px;
+}

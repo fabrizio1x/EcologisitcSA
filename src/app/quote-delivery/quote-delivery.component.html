@@ -1,0 +1,150 @@
+<div class="page-container">
+  <header class="header">
+    <div class="logo-section">
+      <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+      <div class="brand-text">
+        <span class="brand">Ecologistic S.A.</span>
+        <span class="slogan">Transporte ecológico con tecnología avanzada</span>
+      </div>
+    </div>
+    <nav class="nav-links">
+      <a routerLink="/" class="active">
+        <ion-icon name="home-outline"></ion-icon>
+        Inicio
+      </a>
+    </nav>
+  </header>
+
+  <div class="content-container">
+    <div class="quote-section">
+      <h1>Precios con tarifa fija a todo Chile</h1>
+      
+      <div class="location-selectors">
+        <div class="location-field">
+          <label>Origen:</label>
+          <div class="select-container">
+            <select [(ngModel)]="selectedOrigin" (change)="mostrarPrecios = false">
+              <option value="">Selecciona una comuna</option>
+              <optgroup *ngFor="let region of regiones" [label]="region">
+                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
+                  {{comuna.nombre}}
+                </option>
+              </optgroup>
+            </select>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </div>
+        </div>
+
+        <div class="location-field">
+          <label>Destino:</label>
+          <div class="select-container">
+            <select [(ngModel)]="selectedDestination" (change)="mostrarPrecios = false">
+              <option value="">Selecciona una comuna</option>
+              <optgroup *ngFor="let region of regiones" [label]="region">
+                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
+                  {{comuna.nombre}}
+                </option>
+              </optgroup>
+            </select>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </div>
+        </div>
+      </div>
+
+      <button class="quote-button" (click)="calcularCotizacion()" [disabled]="!selectedOrigin || !selectedDestination">
+        <ion-icon name="cash-outline"></ion-icon>
+        Cotizar
+      </button>
+
+      <div class="pricing-info" *ngIf="mostrarPrecios">
+        <div class="distance-info">
+          <ion-icon name="map-outline"></ion-icon>
+          <span>Distancia aproximada: {{distancia}} km</span>
+        </div>
+
+        <div class="pricing-tables">
+      <div class="pricing-table">
+            <h2>Punto Ecologistic</h2>
+        <div class="table-container">
+          <div class="table-header">
+                <div class="cell">Tamaño</div>
+                <div class="cell">Precio</div>
+              </div>
+              <div class="table-row" *ngIf="preciosPuntoEcologistic">
+                <div class="cell">XS</div>
+                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.xs)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosPuntoEcologistic">
+                <div class="cell">S</div>
+                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.s)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosPuntoEcologistic">
+                <div class="cell">M</div>
+                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.m)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosPuntoEcologistic">
+                <div class="cell">L</div>
+                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.l)}}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="pricing-table">
+            <h2>Entrega a Domicilio</h2>
+            <div class="table-container">
+              <div class="table-header">
+                <div class="cell">Tamaño</div>
+                <div class="cell">Precio</div>
+              </div>
+              <div class="table-row" *ngIf="preciosDomicilio">
+                <div class="cell">XS</div>
+                <div class="cell">{{formatearPrecio(preciosDomicilio.xs)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosDomicilio">
+                <div class="cell">S</div>
+                <div class="cell">{{formatearPrecio(preciosDomicilio.s)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosDomicilio">
+                <div class="cell">M</div>
+                <div class="cell">{{formatearPrecio(preciosDomicilio.m)}}</div>
+              </div>
+              <div class="table-row" *ngIf="preciosDomicilio">
+                <div class="cell">L</div>
+                <div class="cell">{{formatearPrecio(preciosDomicilio.l)}}</div>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="size-help-button" (click)="toggleEjemplos()">
+        <ion-icon name="help-circle-outline"></ion-icon>
+        No sé qué talla es mi envío
+      </button>
+
+      <div class="size-examples" *ngIf="mostrarEjemplos">
+        <div class="example-card" *ngFor="let size of ['xs', 's', 'm', 'l']">
+          <div class="example-image">
+            <div class="size-icons">
+              <span>{{ejemplosTamanos[size].icono.split(' ')[0]}}</span>
+              <span>{{ejemplosTamanos[size].icono.split(' ')[1]}}</span>
+            </div>
+            <div class="size-badge">{{size.toUpperCase()}}</div>
+          </div>
+          <div class="example-content">
+            <h3>{{ejemplosTamanos[size].descripcion}}</h3>
+            <p class="weight">{{ejemplosTamanos[size].peso}}</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="send-now-button" routerLink="/cliente/nuevo-pedido" *ngIf="mostrarPrecios">
+        <ion-icon name="paper-plane-outline"></ion-icon>
+        Quiero enviar ahora
+      </button>
+    </div>
+  </div>
+  <footer class="footer">
+    © 2025 Ecologistic S.A. Todos los derechos reservados.
+  </footer>
+</div> 

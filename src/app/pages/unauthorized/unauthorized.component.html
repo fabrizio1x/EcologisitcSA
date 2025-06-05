@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Acceso No Autorizado</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="unauthorized-container">
+    <ion-icon name="lock-closed" color="danger" class="large-icon"></ion-icon>
+    
+    <h2>Acceso Denegado</h2>
+    <p>No tienes los permisos necesarios para acceder a esta sección.</p>
+    
+    <div class="action-buttons">
+      <ion-button expand="block" (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+        Volver al Inicio
+      </ion-button>
+      
+      <ion-button expand="block" color="medium" (click)="cerrarSesion()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Cerrar Sesión
+      </ion-button>
+    </div>
+  </div>
+</ion-content> 

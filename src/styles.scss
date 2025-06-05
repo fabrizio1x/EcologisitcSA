@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+:root {
+  --app-background: linear-gradient(180deg, #003828 0%, #001a12 100%);
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  width: 100%;
+  background: var(--app-background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #ffffff;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+
+// ... existing code ... 
+
+/* Estilos base del Toast */
+.custom-toast {
+  --min-width: 300px;
+  --max-width: 400px;
+  --border-radius: 12px;
+  --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  
+  &::part(container) {
+    padding: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  &::part(header) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 16px 4px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  &::part(message) {
+    font-size: 0.95rem;
+    padding: 4px 16px 12px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.4;
+  }
+
+  &::part(icon) {
+    font-size: 22px;
+    padding-right: 8px;
+  }
+
+  &::part(button) {
+    padding: 10px;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Variantes de color para el Toast */
+.toast-success {
+  --background: rgba(76, 175, 80, 0.95);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+
+  &::part(container) {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.95), rgba(56, 142, 60, 0.95));
+    border: 1px solid rgba(76, 175, 80, 0.3);
+  }
+
+  &::part(header), &::part(message) {
+    color: #ffffff;
+  }
+}
+
+.toast-error {
+  --background: rgba(244, 67, 54, 0.95);
+
+  &::part(container) {
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.95), rgba(211, 47, 47, 0.95));
+    border: 1px solid rgba(244, 67, 54, 0.3);
+  }
+
+  &::part(header), &::part(message) {
+    color: #ffffff;
+  }
+}
+
+.toast-warning {
+  --background: rgba(255, 152, 0, 0.95);
+
+  &::part(container) {
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.95), rgba(245, 124, 0, 0.95));
+    border: 1px solid rgba(255, 152, 0, 0.3);
+  }
+
+  &::part(header), &::part(message) {
+    color: #ffffff;
+  }
+}
+
+/* Animación del Toast */
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.custom-toast {
+  animation: toastSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+} 

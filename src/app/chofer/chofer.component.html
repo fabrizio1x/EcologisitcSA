@@ -1,0 +1,102 @@
+<div class="page-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <img src="assets/images/leaf-logo.png" alt="Ecologistic" class="logo">
+        <div class="header-text">
+          <h1>Ecologistic • Chofer</h1>
+          <p>Transporte ecológico con tecnología avanzada</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <a routerLink="/home" class="nav-link">
+          <ion-icon name="home-outline"></ion-icon>
+          Inicio
+        </a>
+        <button class="nav-link" (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          Cerrar sesión
+    </button>
+  </div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <div class="content-container chofer-content">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <ion-icon name="cube-outline"></ion-icon>
+          Pedidos Asignados
+        </h2>
+      </div>
+      <div class="mapa-container">
+        <button class="optimize-route-btn">
+          <ion-icon name="git-branch-outline"></ion-icon>
+          Optimizar Ruta
+        </button>
+        <div id="mapa-pedidos"></div>
+      </div>
+      <div class="pedidos-grid">
+        <ng-container *ngIf="!loading && pedidos.length > 0; else emptyOrLoading">
+    <div class="pedidos-list">
+            <div class="pedido-card" *ngFor="let pedido of pedidos">
+        <div class="pedido-header">
+                <span class="numero-seguimiento">
+                  <ion-icon name="barcode-outline"></ion-icon>
+                  {{pedido.numeroSeguimiento}}
+                </span>
+                <span class="estado" [ngClass]="'estado-' + pedido.estado">
+                  <ion-icon name="ellipse"></ion-icon>
+            {{ getEstadoTexto(pedido.estado) }}
+          </span>
+        </div>
+              <div class="pedido-content">
+          <div class="info-row">
+                  <ion-icon name="navigate-outline"></ion-icon>
+                  <div class="info-text">
+                    <span>{{pedido.origen.comuna}} → {{pedido.destino.comuna}}</span>
+                  </div>
+          </div>
+          <div class="info-row">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <div class="info-text">
+                    <span>{{pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</span>
+                  </div>
+          </div>
+          <div class="info-row">
+                  <ion-icon name="cube-outline"></ion-icon>
+                  <div class="info-text">
+                    <strong>Detalles del Paquete</strong>
+                    <p>{{pedido.datosPaquete.descripcion || 'Sin descripción'}} - {{pedido.datosPaquete.tamano}}</p>
+                  </div>
+                </div>
+                <div class="info-row" *ngIf="pedido.estado === 'en_proceso' || pedido.estado === 'en_ruta'">
+                  <ion-button color="success" (click)="marcarEntregado(pedido)">
+                    <ion-icon name="checkmark-done-outline"></ion-icon>
+                    Marcar como Entregado
+                  </ion-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #emptyOrLoading>
+          <div *ngIf="loading" class="loading-state">
+            <ion-spinner name="crescent"></ion-spinner>
+            <p>Cargando pedidos...</p>
+          </div>
+          <div *ngIf="!loading && pedidos.length === 0" class="empty-state">
+            <ion-icon name="cube-outline" class="pulse-icon"></ion-icon>
+            <p>No tienes pedidos asignados.</p>
+        </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
+</footer>

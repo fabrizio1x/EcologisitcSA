@@ -1,0 +1,159 @@
+<div class="page-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+        <div class="company-info">
+          <h1>Panel de Gerencia</h1>
+          <p>Monitoreo en tiempo real</p>
+        </div>
+      </div>
+      <nav class="nav-buttons">
+        <a routerLink="/inicio" class="home-button">
+          <ion-icon name="home-outline"></ion-icon>
+          Inicio
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="content-container">
+    <!-- Resumen General -->
+    <div class="dashboard-grid">
+      <!-- Total de Pedidos -->
+      <div class="stat-card">
+        <div class="stat-content">
+          <div class="stat-icon">
+            <ion-icon name="cube-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>Total Pedidos</h3>
+            <p class="stat-value">{{ totalPedidos || '0' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedidos Esta Semana -->
+      <div class="stat-card">
+        <div class="stat-content">
+          <div class="stat-icon">
+            <ion-icon name="calendar-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>Esta Semana</h3>
+            <p class="stat-value">{{ pedidosSemana || '0' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedidos Este Mes -->
+      <div class="stat-card">
+        <div class="stat-content">
+          <div class="stat-icon">
+            <ion-icon name="stats-chart-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>Este Mes</h3>
+            <p class="stat-value">{{ pedidosMes || '0' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedidos Este Trimestre -->
+      <div class="stat-card">
+        <div class="stat-content">
+          <div class="stat-icon">
+            <ion-icon name="trending-up-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <h3>Este Trimestre</h3>
+            <p class="stat-value">{{ pedidosTrimestre || '0' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gráficos y Estadísticas Detalladas -->
+    <div class="charts-grid">
+      <!-- Estado de Pedidos -->
+      <div class="chart-card">
+        <div class="card-header">
+          <h2>
+            <ion-icon name="pie-chart-outline"></ion-icon>
+            Estado de Pedidos
+          </h2>
+        </div>
+        <div class="card-content">
+          <canvas #estadoPedidosChart></canvas>
+        </div>
+      </div>
+
+      <!-- Distribución por Región -->
+      <div class="chart-card">
+        <div class="card-header">
+          <h2>
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            Entregas por Región
+          </h2>
+        </div>
+        <div class="card-content">
+          <canvas #regionesChart></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ranking de Choferes -->
+    <div class="ranking-card">
+      <div class="card-header">
+        <h2>
+          <ion-icon name="trophy-outline"></ion-icon>
+          Ranking de Choferes
+        </h2>
+      </div>
+      <div class="table-container">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>Posición</th>
+              <th>Chofer</th>
+              <th>Entregas Completadas</th>
+              <th>Tasa de Éxito</th>
+              <th>Calificación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let chofer of rankingChoferes; let i = index">
+              <td class="position">
+                <span [class]="'position-' + (i + 1)">{{ i + 1 }}</span>
+              </td>
+              <td>{{ chofer.nombre }}</td>
+              <td>{{ chofer.entregasCompletadas }}</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress" [style.width]="chofer.tasaExito + '%'"></div>
+                  <span>{{ chofer.tasaExito }}%</span>
+                </div>
+              </td>
+              <td>
+                <div class="rating">
+                  <ion-icon 
+                    *ngFor="let star of [1,2,3,4,5]" 
+                    [name]="star <= chofer.calificacion ? 'star' : 'star-outline'"
+                    [class.filled]="star <= chofer.calificacion">
+                  </ion-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
+  </footer>
+</div> 

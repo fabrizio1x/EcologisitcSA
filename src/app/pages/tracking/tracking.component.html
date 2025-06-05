@@ -1,0 +1,166 @@
+<ion-content>
+  <div class="tracking-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+          <div class="company-info">
+            <h1>Ecologistic S.A.</h1>
+            <p>Transporte ecológico con tecnología avanzada</p>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <a routerLink="/" class="home-button">
+            <ion-icon name="home-outline"></ion-icon>
+            Inicio
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <div class="content">
+      <img src="assets/images/SeguimientoEco.png" alt="Seguimiento Ecologistic" class="tracking-logo">
+      
+      <!-- Loading spinner -->
+      <div class="loading-container" *ngIf="loading">
+        <ion-spinner name="circular"></ion-spinner>
+        <p>Cargando información del envío...</p>
+      </div>
+
+      <!-- Error message -->
+      <div class="error-container" *ngIf="error">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <p>{{ error }}</p>
+        <button class="retry-button" routerLink="/">
+          <ion-icon name="home-outline"></ion-icon>
+          Volver al Inicio
+        </button>
+      </div>
+
+      <!-- Tracking info -->
+      <div class="tracking-info" *ngIf="pedido && !loading && !error">
+        <!-- Estado del Pedido -->
+        <div class="estado-pedido-container">
+          <div class="estado-header">
+            <h2>Número de Seguimiento:</h2>
+            <div class="numero-seguimiento">{{pedido.numeroSeguimiento || ''}}</div>
+            <div class="estado-badge" [ngClass]="'estado-' + (pedido.estado || '')">
+              <ion-icon name="ellipse"></ion-icon>
+              {{getEstadoTexto(pedido.estado)}}
+            </div>
+          </div>
+
+          <div class="timeline-container">
+            <div class="timeline-item" [class.active]="['pendiente', 'en_proceso', 'en_ruta', 'entregado'].includes(pedido.estado || '')">
+              <div class="timeline-icon">
+                <ion-icon name="document-text-outline"></ion-icon>
+              </div>
+              <div class="timeline-text">Pedido Registrado</div>
+            </div>
+
+            <div class="timeline-item" [class.active]="['en_proceso', 'en_ruta', 'entregado'].includes(pedido.estado || '')">
+              <div class="timeline-icon">
+                <ion-icon name="cube-outline"></ion-icon>
+              </div>
+              <div class="timeline-text">En Proceso</div>
+            </div>
+
+            <div class="timeline-item" [class.active]="['en_ruta', 'entregado'].includes(pedido.estado || '')">
+              <div class="timeline-icon">
+                <ion-icon name="car-outline"></ion-icon>
+              </div>
+              <div class="timeline-text">En Ruta</div>
+            </div>
+
+            <div class="timeline-item" [class.active]="pedido.estado === 'entregado'">
+              <div class="timeline-icon">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>
+              </div>
+              <div class="timeline-text">Entregado</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Huella Ecológica -->
+        <div class="huella-ecologica-container">
+          <div class="huella-header">
+            <ion-icon name="leaf-outline"></ion-icon>
+            <h2>Huella ecológica</h2>
+          </div>
+          
+          <div class="huella-content">
+            <p class="huella-principal">Este envío ha ahorrado 2.4kg de CO2 comparado con métodos tradicionales</p>
+            
+            <div class="huella-detalles">
+              <div class="huella-item">
+                <ion-icon name="leaf-outline"></ion-icon>
+                <span>Equivalente a plantar 0.5 árboles</span>
+              </div>
+              <div class="huella-item">
+                <ion-icon name="car-outline"></ion-icon>
+                <span>Reducción de 15km en viajes en auto</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping details -->
+        <div class="shipping-details">
+          <!-- Origen -->
+          <div class="detail-card">
+            <h3>
+              <ion-icon name="location-outline"></ion-icon>
+              Origen
+            </h3>
+            <p><strong>Dirección:</strong> {{ pedido.origen.direccion }}</p>
+            <p><strong>Comuna:</strong> {{ pedido.origen.comuna }}</p>
+            <p><strong>Región:</strong> {{ pedido.origen.region }}</p>
+            <p *ngIf="pedido.origen.referencias"><strong>Referencias:</strong> {{ pedido.origen.referencias }}</p>
+          </div>
+
+          <!-- Destino -->
+          <div class="detail-card">
+            <h3>
+              <ion-icon name="flag-outline"></ion-icon>
+              Destino
+            </h3>
+            <p><strong>Dirección:</strong> {{ pedido.destino.direccion }}</p>
+            <p><strong>Comuna:</strong> {{ pedido.destino.comuna }}</p>
+            <p><strong>Región:</strong> {{ pedido.destino.region }}</p>
+            <p *ngIf="pedido.destino.referencias"><strong>Referencias:</strong> {{ pedido.destino.referencias }}</p>
+          </div>
+
+          <!-- Detalles del paquete -->
+          <div class="detail-card">
+            <h3>
+              <ion-icon name="cube-outline"></ion-icon>
+              Detalles del Paquete
+            </h3>
+            <p><strong>Tamaño:</strong> {{ pedido.datosPaquete.tamano }}</p>
+            <p><strong>Peso:</strong> {{ pedido.datosPaquete.peso }} kg</p>
+            <p><strong>Descripción:</strong> {{ pedido.datosPaquete.descripcion }}</p>
+            <p><strong>Frágil:</strong> {{ pedido.datosPaquete.fragil ? 'Sí' : 'No' }}</p>
+            <p><strong>Requiere embalaje especial:</strong> {{ pedido.datosPaquete.requiereEmbalaje ? 'Sí' : 'No' }}</p>
+          </div>
+
+          <!-- Información adicional -->
+          <div class="detail-card">
+            <h3>
+              <ion-icon name="information-circle-outline"></ion-icon>
+              Información Adicional
+            </h3>
+            <p><strong>Fecha de creación:</strong> {{ pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</p>
+            <p><strong>Estado:</strong> {{ getEstadoTexto(pedido.estado) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© {{ currentYear }} Ecologistic S.A. - Todos los derechos reservados</p>
+    </footer>
+  </div>
+</ion-content> 

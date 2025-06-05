@@ -1,0 +1,602 @@
+// Variables
+$primary-color: #003828;
+$secondary-color: #5c9474;
+$text-light: #ffffff;
+$spacing-unit: 1rem;
+
+// Mixins
+@mixin mobile {
+  @media (max-width: 767px) { @content; }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1023px) { @content; }
+}
+
+@mixin desktop {
+  @media (min-width: 1024px) { @content; }
+}
+
+// Base styles
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #003828 0%, #001a12 100%);
+}
+
+// Header styles
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-unit 2rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+
+  @include mobile {
+    padding: $spacing-unit;
+  }
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+
+  .company-name {
+    color: $secondary-color;
+    font-size: 1.5rem;
+    font-weight: 600;
+
+    @include mobile {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  @include mobile {
+    gap: 0.5rem;
+  }
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-light;
+  border: none;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+
+    &::before {
+      transform: translate(-50%, -50%) scale(2);
+    }
+
+    ion-icon {
+      animation: slideRight 0.5s ease forwards;
+    }
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+
+  @include mobile {
+    padding: 0.5rem 1rem;
+    
+    .login-text {
+      display: none;
+    }
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(92, 148, 116, 0.2);
+  color: $text-light;
+  border: 1px solid rgba(92, 148, 116, 0.3);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  @include mobile {
+    padding: 0.5rem 1rem;
+    
+    span {
+      display: none;
+    }
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+
+  &:hover {
+    background: rgba(92, 148, 116, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+    transition: all 0.3s ease;
+
+  @include mobile {
+    padding: 0.5rem 1rem;
+    
+    .logout-text {
+      display: none;
+    }
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+// Content styles
+.content-container {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include mobile {
+    padding: 1rem;
+  }
+}
+
+.welcome-section {
+  text-align: center;
+  color: $text-light;
+  margin-bottom: 3rem;
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem;
+
+    @include mobile {
+      font-size: 2rem;
+    }
+  }
+
+  .slogan {
+    font-size: 1.8rem;
+    color: $secondary-color;
+    margin: 0 0 1rem;
+
+    @include mobile {
+      font-size: 1.4rem;
+    }
+  }
+
+  .years-badge {
+    font-size: 1.2rem;
+    opacity: 0.9;
+
+    @include mobile {
+      font-size: 1rem;
+  }
+}
+}
+
+// Services section
+.services-section {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+.services-image-container {
+  flex: 1;
+  max-width: 500px;
+
+  @include mobile {
+    width: 100%;
+  }
+
+  .services-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.services-content {
+  flex: 1;
+
+  .services-title {
+    font-size: 2.2rem;
+    color: $text-light;
+    margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+    @include mobile {
+      font-size: 1.8rem;
+    }
+}
+
+.box-emoji {
+    font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.services-subtitle {
+    font-size: 1.2rem;
+    color: $secondary-color;
+  margin-bottom: 2rem;
+
+    @include mobile {
+      font-size: 1.1rem;
+  }
+}
+}
+
+// Buttons
+.services-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+  justify-content: center;
+}
+
+.service-button {
+  width: 100%;
+  padding: 1rem;
+  background: #5c9474;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    background: #4b7b5c;
+
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    ion-icon {
+      transform: scale(1.2);
+    }
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+
+  &.secondary {
+    margin: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+// Tracking section
+.tracking-section {
+  .tracking-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+
+    ion-icon {
+      color: $text-light;
+      font-size: 1.4rem;
+      margin-right: 0.75rem;
+    }
+
+    input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: $text-light;
+      font-size: 1rem;
+      outline: none;
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .error-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(255, 82, 82, 0.95);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+
+      ion-icon {
+        color: $text-light;
+        font-size: 20px;
+        flex-shrink: 0;
+        margin-right: 0;
+      }
+
+      span {
+        color: $text-light;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+.tracking-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: $text-light;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  border: none;
+  position: relative;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+
+    .tooltip {
+      opacity: 1;
+      visibility: visible;
+    transform: translateY(0);
+    }
+  }
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+
+  .tooltip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: linear-gradient(135deg, rgba(0, 56, 40, 0.95), rgba(0, 26, 18, 0.95));
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    border: 1px solid rgba(92, 148, 116, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-bottom-color: rgba(92, 148, 116, 0.3);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: calc(100% - 1px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: rgba(0, 56, 40, 0.95);
+    }
+  }
+
+  &:hover .tooltip {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+// Footer
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-content {
+  p {
+    margin: 0;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+
+    &:not(:last-child) {
+      margin-bottom: 0.4rem;
+    }
+
+    strong {
+      color: $secondary-color;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+// Fix for iOS momentum scrolling
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+}
+
+// Animación de entrada para los tooltips
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+} 

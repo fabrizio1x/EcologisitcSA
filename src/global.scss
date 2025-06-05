@@ -1,0 +1,81 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/* Theme variables */
+@import "./theme/variables.scss";
+
+/* Estilos globales personalizados */
+:root {
+  --ion-color-primary: #2dd36f;
+  --ion-color-primary-rgb: 45,211,111;
+  --ion-color-primary-contrast: #000000;
+  --ion-color-primary-contrast-rgb: 0,0,0;
+  --ion-color-primary-shade: #28ba62;
+  --ion-color-primary-tint: #42d77d;
+}
+
+// Global Styles
+body {
+  background-color: var(--app-background);
+}
+
+ion-content {
+  --background: var(--app-background);
+}
+
+// App specific styles
+.page-container {
+  --background: var(--app-background);
+  background-color: var(--app-background);
+  min-height: 100vh;
+}
+
+// Card styles in dark background
+ion-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+ion-button {
+  --box-shadow: none;
+  font-weight: 500;
+}
+
+// Typography styles
+h1, h2, h3, h4, h5, h6,
+ion-title, ion-card-title,
+ion-label, ion-text, p,
+button, input, textarea {
+  font-family: 'Inter', sans-serif;
+}
+
+html, body, ion-app, ion-content {
+  overflow: auto !important;
+  touch-action: pan-y !important;
+  min-height: 100vh;
+}

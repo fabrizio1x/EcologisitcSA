@@ -1,0 +1,22 @@
+ion-app {
+  height: 100vh;
+  width: 100vw;
+  background: #ffffff;
+}
+
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
+  position: relative;
+  background: #ffffff;
+}
+
+ion-content {
+  --background: #ffffff;
+}
+
+ion-router-outlet {
+  background: #ffffff;
+}

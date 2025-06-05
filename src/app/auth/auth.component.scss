@@ -1,0 +1,133 @@
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #003828 0%, #001a12 100%);
+  padding: 1rem;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-section {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  .logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+  }
+
+  h1 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  ion-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #5c9474;
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff4d4d;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  background: rgba(255, 77, 77, 0.1);
+
+  ion-icon {
+    font-size: 1.25rem;
+  }
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: #5c9474;
+  color: #ffffff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: darken(#5c9474, 5%);
+  }
+
+  &:disabled {
+    background: rgba(92, 148, 116, 0.5);
+    cursor: not-allowed;
+  }
+
+  ion-icon {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+
+  .logo-section {
+    .logo {
+      width: 60px;
+      height: 60px;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+    }
+  }
+}

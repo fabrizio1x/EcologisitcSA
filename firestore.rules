@@ -1,0 +1,71 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Función para verificar si el usuario está autenticado
+    function isAuth() {
+      return request.auth != null;
+    }
+    
+    // Función para verificar si el documento del usuario existe
+    function userExists() {
+      return isAuth() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+    
+    // Función para obtener el rol del usuario
+    function getUserRole() {
+      return userExists() ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role : null;
+    }
+    
+    // Función para verificar el rol del usuario
+    function hasRole(role) {
+      return userExists() && getUserRole() == role;
+    }
+    
+    // Función para verificar si el usuario es chofer
+    function isChofer() {
+      return isAuth() && 
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'chofer';
+    }
+    
+    // Reglas para la colección de usuarios
+    match /users/{userId} {
+      allow read: if isAuth() && request.auth.uid == userId;
+      allow write: if false; // Solo permitir escritura a través de funciones de Cloud
+      
+      // Los choferes pueden leer información básica de otros usuarios para los pedidos
+      allow read: if isChofer() && 
+                    get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'chofer';
+    }
+    
+    // Reglas para la colección de pedidos
+    match /pedidos/{pedidoId} {
+      allow read: if isAuth() && (
+        getUserRole() == 'gerencia' || 
+        getUserRole() == 'secretaria' ||
+        (getUserRole() == 'cliente' && resource.data.clienteId == request.auth.uid) ||
+        (getUserRole() == 'chofer' && resource.data.choferId == request.auth.uid)
+      );
+      allow create: if isAuth() && (
+        getUserRole() == 'cliente' || 
+        getUserRole() == 'secretaria'
+      );
+      allow update: if isAuth() && (
+        getUserRole() == 'gerencia' || 
+        getUserRole() == 'secretaria' ||
+        (getUserRole() == 'chofer' && resource.data.choferId == request.auth.uid)
+      );
+      allow delete: if isAuth() && getUserRole() == 'gerencia';
+      
+      // Los choferes pueden leer todos los pedidos asignados a ellos
+      allow read: if isChofer() && 
+                    (resource.data.choferId == request.auth.uid || 
+                     resource.data.estado == 'pendiente');
+      
+      // Los choferes pueden actualizar solo el estado y comentarios de sus pedidos asignados
+      allow update: if isChofer() && 
+                      resource.data.choferId == request.auth.uid &&
+                      request.resource.data.diff(resource.data).affectedKeys()
+                        .hasOnly(['estado', 'comentario', 'fechaActualizacion']);
+    }
+  }
+} 

@@ -1,0 +1,11 @@
+# Configuración de Firebase para este proyecto
+
+1. Ve a https://console.firebase.google.com y crea un proyecto nuevo (o usa uno existente).
+2. En la sección de configuración del proyecto, agrega una nueva app web y copia los datos de configuración de Firebase.
+3. Crea los archivos:
+   - src/environments/environment.ts
+   - src/environments/environment.prod.ts
+   Puedes copiar la estructura de los archivos .example.ts y pegar tus credenciales.
+4. ¡Listo! Ya puedes usar la app con tu propio backend de Firebase.
+
+IMPORTANTE: Nunca subas tus archivos environment.ts ni environment.prod.ts a ningún repositorio público. 

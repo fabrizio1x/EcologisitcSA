@@ -1,0 +1,475 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #003828 0%, #001a12 100%);
+  width: 100%;
+  position: relative;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.header {
+  background-color: #003828;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .logo {
+      width: 30px;
+      height: 30px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      
+      .brand {
+        color: #5c9474;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .slogan {
+        color: #94A3B8;
+        font-size: 0.875rem;
+        margin: 0;
+      }
+    }
+  }
+
+  .nav-links {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #5c9474;
+      text-decoration: none;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #4b7b5c;
+      }
+    }
+  }
+}
+
+.content-container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  overflow-y: auto;
+  height: calc(100vh - 64px); /* Ajusta este valor según la altura de tu header */
+}
+
+.form-section {
+  position: relative;
+  
+  h1 {
+    color: #5c9474;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    position: relative;
+    z-index: 2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 300px;
+    background: url('/assets/images/truck-logo.png') no-repeat center center;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: 1;
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-20px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+}
+
+.despacho-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(92, 148, 116, 0.1);
+
+  h2 {
+    color: #5c9474;
+    font-size: 1.25rem;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    ion-icon {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+
+    ion-icon {
+      color: #5c9474;
+      font-size: 1.2rem;
+    }
+  }
+
+  .helper-text {
+    display: block;
+    color: #94A3B8;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    font-style: italic;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+
+    &:focus {
+      outline: none;
+      border-color: #5c9474;
+      background-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 2px rgba(92, 148, 116, 0.2);
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+
+    option {
+      background-color: #003828;
+      color: white;
+      padding: 10px;
+
+    &:hover {
+        background-color: #5c9474;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  }
+
+  // Estilo especial para selects en estado de error
+  select.ng-invalid.ng-touched {
+    border-color: #ff4d4d;
+    
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.2);
+    }
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #5c9474;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.tamano-selector {
+  margin-bottom: 1.5rem;
+
+  .tamano-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .tamano-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(92, 148, 116, 0.2);
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+
+    &:hover {
+      background: rgba(92, 148, 116, 0.1);
+      transform: translateY(-2px);
+    }
+
+    &.selected {
+      background: rgba(92, 148, 116, 0.2);
+      border-color: #5c9474;
+    }
+
+    .tamano-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    h3 {
+      color: white;
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+.checkboxes {
+  margin-top: 1rem;
+
+  .checkbox-group {
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        width: auto;
+        margin-right: 0.5rem;
+      }
+
+      span {
+        color: white;
+      }
+
+      ion-icon {
+        color: #5c9474;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #5c9474 0%, #3d7355 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(92, 148, 116, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &.not-authenticated {
+    background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+
+    &:hover {
+      background: linear-gradient(135deg, #357abd 0%, #2868a9 100%);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+  }
+
+  ion-icon {
+    font-size: 1.25rem;
+  }
+}
+
+.footer {
+  text-align: center;
+  color: white;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-top: 2rem;
+}
+
+.campos-faltantes {
+  background: rgba(255, 87, 51, 0.1);
+  border: 1px solid rgba(255, 87, 51, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  h4 {
+    color: #ff5733;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+
+    ion-icon {
+      font-size: 1.25rem;
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: rgba(255, 87, 51, 0.8);
+    font-size: 0.9rem;
+
+    li {
+      margin: 0.25rem 0;
+    }
+  }
+}
+
+.form-progress {
+  margin-top: 1.5rem;
+  
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #5c9474 0%, #3d7355 100%);
+      transition: width 0.3s ease;
+    }
+  }
+  
+  .progress-text {
+    display: block;
+    text-align: center;
+    color: #94A3B8;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    padding: 1rem;
+  }
+
+  .form-card {
+    padding: 1rem;
+  }
+
+  .tamano-options {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+} 

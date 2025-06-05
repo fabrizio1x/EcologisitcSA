@@ -1,0 +1,37 @@
+.unauthorized-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px);
+  text-align: center;
+  padding: 20px;
+
+  .large-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    color: var(--ion-color-danger);
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 300px;
+  }
+
+  .action-buttons {
+    width: 100%;
+    max-width: 300px;
+
+    ion-button {
+      margin-bottom: 10px;
+    }
+  }
+} 

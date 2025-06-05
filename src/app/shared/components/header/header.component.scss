@@ -1,0 +1,66 @@
+.header {
+  background-color: transparent;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand {
+    color: #5c9474;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .slogan {
+    color: #94A3B8;
+    font-size: 0.875rem;
+    margin: 0;
+    display: block;
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #5c9474;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &:hover {
+      color: #4b7b5c;
+    }
+
+    &.active {
+      color: #4b7b5c;
+    }
+  }
+} 

@@ -1,0 +1,7 @@
+{
+  "name": "ecologistic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

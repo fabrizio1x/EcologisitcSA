@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 @import 'leaflet/dist/leaflet.css';
 
@@ -5,16 +9,16 @@
   --app-background: linear-gradient(180deg, #003828 0%, #001a12 100%);
 }
 
-html {
+html, body {
   height: 100%;
+  min-height: 100%;
   width: 100%;
+  overflow-y: auto !important;
 }
 
 body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
-  width: 100%;
   background: var(--app-background);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   color: #ffffff;

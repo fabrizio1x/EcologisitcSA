@@ -1,64 +1,84 @@
-<app-base-layout>
-  <div class="page-container">
-  <div class="login-container">
-    <div class="background-image"></div>
-    <div class="login-box">
-      <div class="logo-container">
-        <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
+<ion-content>
+  <div class="min-h-screen bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800 flex items-center justify-center p-4 relative">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-4 -right-4 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-8 -left-8 w-64 h-64 bg-green-400/10 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-600/5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="w-full max-w-md relative z-10">
+      <button type="button" class="inline-flex items-center text-emerald-200 hover:text-white mb-8 transition-colors" (click)="navigateToHome()">
+        <ion-icon name="arrow-back-outline" class="w-4 h-4 mr-2"></ion-icon>
+        Volver al inicio
+      </button>
+      <div class="bg-white/10 border border-emerald-500/30 backdrop-blur-lg shadow-2xl rounded-2xl">
+        <div class="space-y-4 text-center p-8 pb-0">
+          <div class="mx-auto w-16 h-16 bg-emerald-500 rounded-2xl flex items-center justify-center">
+            <ion-icon name="leaf-outline" class="w-8 h-8 text-white"></ion-icon>
+          </div>
+          <div class="space-y-2">
+            <div class="text-2xl font-bold text-white">Iniciar Sesión</div>
+            <div class="text-emerald-200">Accede a tu panel de control EcologisticSA</div>
+          </div>
+          <div class="inline-flex items-center bg-emerald-500/20 text-emerald-100 border border-emerald-500/30 px-3 py-1 rounded text-xs">
+            <ion-icon name="shield-outline" class="w-3 h-3 mr-1"></ion-icon>
+            Conexión Segura
+          </div>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6 p-8 pt-4">
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-emerald-100">Correo Electrónico</label>
+            <div class="relative">
+              <ion-icon name="mail-outline" class="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400 w-4 h-4"></ion-icon>
+              <input type="email" formControlName="email" placeholder="correo@ejemplo.com" class="pl-10 h-11 bg-white/10 border border-emerald-500/30 text-white placeholder:text-emerald-200/70 focus:border-emerald-400 focus:ring-emerald-400/20 w-full rounded outline-none" required />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm font-medium text-emerald-100">Contraseña</label>
+            <div class="relative">
+              <ion-icon name="lock-closed-outline" class="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400 w-4 h-4"></ion-icon>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="••••••••" class="pl-10 pr-10 h-11 bg-white/10 border border-emerald-500/30 text-white placeholder:text-emerald-200/70 focus:border-emerald-400 focus:ring-emerald-400/20 w-full rounded outline-none" required />
+              <button type="button" (click)="showPassword = !showPassword" class="absolute right-3 top-1/2 -translate-y-1/2 text-emerald-400 hover:text-emerald-300 transition-colors">
+                <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="w-4 h-4"></ion-icon>
+              </button>
+            </div>
+          </div>
+          <div class="text-right">
+            <button type="button" class="text-sm text-emerald-300 hover:text-emerald-200 transition-colors" (click)="forgotPassword()">
+              ¿Olvidaste tu contraseña?
+            </button>
+          </div>
+          <button type="submit" class="w-full h-11 bg-emerald-500 text-white hover:bg-emerald-600 font-medium rounded transition" [disabled]="isLoading">
+            <ng-container *ngIf="isLoading; else loginText">
+              <span class="flex items-center justify-center">
+                <span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></span>
+                Iniciando sesión...
+              </span>
+            </ng-container>
+            <ng-template #loginText>Iniciar Sesión</ng-template>
+          </button>
+        </form>
+        <div class="relative px-8">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-emerald-500/30"></div>
+          </div>
+          <div class="relative flex justify-center text-xs uppercase">
+            <span class="bg-transparent px-2 text-emerald-300">o</span>
+          </div>
+        </div>
+        <div class="text-center space-y-3 p-8 pt-2">
+          <p class="text-sm text-emerald-200">
+            ¿No tienes una cuenta?
+            <a routerLink="/auth/register" class="text-emerald-300 hover:text-emerald-200 font-medium transition-colors">Regístrate aquí</a>
+          </p>
+          <div class="text-xs text-emerald-300/80">
+            Disponible para clientes, choferes, secretaria y gerencia
+          </div>
+        </div>
       </div>
-
-      <h2>Iniciar Sesión</h2>
-
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <div class="input-container">
-            <ion-icon name="mail-outline"></ion-icon>
-            <input type="email" formControlName="email" placeholder="Correo electrónico">
-          </div>
-          <div class="error-message" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
-            El correo electrónico es requerido
-          </div>
-          <div class="error-message" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']">
-            Ingresa un correo electrónico válido
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="input-container">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" formControlName="password" placeholder="Contraseña">
-          </div>
-          <div class="error-message" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
-            La contraseña es requerida
-          </div>
-          <div class="error-message" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']">
-            La contraseña debe tener al menos 6 caracteres
-          </div>
-        </div>
-
-          <button type="submit" class="login-button" [disabled]="!loginForm.valid || isLoading">
-            <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
-            <span *ngIf="!isLoading">Iniciar Sesión</span>
-        </button>
-      </form>
-
-      <div class="additional-options">
-        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-        <div class="register-link">
-          ¿No tienes cuenta? <a routerLink="/auth/register" class="register-link-green">Regístrate aquí</a>
-        </div>
-        <div class="home-link">
-          <a routerLink="/" class="home-link-green">
-            <ion-icon name="home-outline"></ion-icon>
-            Volver al inicio
-          </a>
-        </div>
-      </div>
-
-      <div class="footer-text">
-        Transporte ecológico con tecnología avanzada
-        </div>
+      <div class="text-center mt-8">
+        <p class="text-sm text-emerald-200/70">Transporte ecológico con tecnología avanzada</p>
       </div>
     </div>
   </div>
-</app-base-layout>
+</ion-content>

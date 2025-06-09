@@ -1,159 +1,110 @@
-<div class="page-container">
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800">
   <!-- Header -->
-  <header class="header">
-    <div class="header-content">
-      <div class="logo-section">
-        <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
-        <div class="company-info">
-          <h1>Panel de Gerencia</h1>
-          <p>Monitoreo en tiempo real</p>
+  <header class="border-b border-emerald-700/30 bg-emerald-950/20 backdrop-blur-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
+          <ion-icon name="leaf-outline" class="text-white text-2xl"></ion-icon>
         </div>
+        <span class="text-2xl font-bold text-white">Panel de Gerencia</span>
       </div>
-      <nav class="nav-buttons">
-        <a routerLink="/inicio" class="home-button">
+      <nav>
+        <a routerLink="/inicio" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors">
           <ion-icon name="home-outline"></ion-icon>
-          Inicio
+          <span class="hidden sm:inline">Inicio</span>
         </a>
       </nav>
     </div>
   </header>
-
   <!-- Main Content -->
-  <main class="content-container">
-    <!-- Resumen General -->
-    <div class="dashboard-grid">
-      <!-- Total de Pedidos -->
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-icon">
-            <ion-icon name="cube-outline"></ion-icon>
+  <main class="flex-1 flex flex-col items-center px-2 py-8">
+    <div class="w-full max-w-7xl mx-auto flex flex-col gap-8">
+      <!-- Resumen General -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-emerald-900/60 border border-emerald-800 rounded-xl shadow-lg p-4 flex flex-col items-center">
+          <ion-icon name="cube-outline" class="text-emerald-300 text-3xl mb-2"></ion-icon>
+          <h3 class="text-lg font-semibold text-emerald-200">Total Pedidos</h3>
+          <p class="text-3xl font-bold text-white">{{ totalPedidos || '0' }}</p>
+        </div>
+        <div class="bg-emerald-900/60 border border-emerald-800 rounded-xl shadow-lg p-4 flex flex-col items-center">
+          <ion-icon name="calendar-outline" class="text-emerald-300 text-3xl mb-2"></ion-icon>
+          <h3 class="text-lg font-semibold text-emerald-200">Esta Semana</h3>
+          <p class="text-3xl font-bold text-white">{{ pedidosSemana || '0' }}</p>
+        </div>
+        <div class="bg-emerald-900/60 border border-emerald-800 rounded-xl shadow-lg p-4 flex flex-col items-center">
+          <ion-icon name="stats-chart-outline" class="text-emerald-300 text-3xl mb-2"></ion-icon>
+          <h3 class="text-lg font-semibold text-emerald-200">Este Mes</h3>
+          <p class="text-3xl font-bold text-white">{{ pedidosMes || '0' }}</p>
+        </div>
+        <div class="bg-emerald-900/60 border border-emerald-800 rounded-xl shadow-lg p-4 flex flex-col items-center">
+          <ion-icon name="trending-up-outline" class="text-emerald-300 text-3xl mb-2"></ion-icon>
+          <h3 class="text-lg font-semibold text-emerald-200">Este Trimestre</h3>
+          <p class="text-3xl font-bold text-white">{{ pedidosTrimestre || '0' }}</p>
+        </div>
+      </div>
+      <!-- Gráficos y Estadísticas Detalladas -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-white/10 border border-emerald-500/30 rounded-2xl shadow-lg p-4 flex flex-col gap-2">
+          <div class="flex items-center gap-2 mb-2">
+            <ion-icon name="pie-chart-outline" class="text-emerald-300 text-xl"></ion-icon>
+            <h2 class="text-lg font-bold text-emerald-300">Estado de Pedidos</h2>
           </div>
-          <div class="stat-info">
-            <h3>Total Pedidos</h3>
-            <p class="stat-value">{{ totalPedidos || '0' }}</p>
+          <div class="card-content">
+            <canvas id="pedidosChart"></canvas>
+          </div>
+        </div>
+        <div class="bg-white/10 border border-emerald-500/30 rounded-2xl shadow-lg p-4 flex flex-col gap-2">
+          <div class="flex items-center gap-2 mb-2">
+            <ion-icon name="bar-chart-outline" class="text-emerald-300 text-xl"></ion-icon>
+            <h2 class="text-lg font-bold text-emerald-300">Entregas por Región</h2>
+          </div>
+          <div class="card-content">
+            <canvas id="ciudadesChart"></canvas>
           </div>
         </div>
       </div>
-
-      <!-- Pedidos Esta Semana -->
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-icon">
-            <ion-icon name="calendar-outline"></ion-icon>
-          </div>
-          <div class="stat-info">
-            <h3>Esta Semana</h3>
-            <p class="stat-value">{{ pedidosSemana || '0' }}</p>
-          </div>
+      <!-- Ranking de Choferes -->
+      <div class="bg-white/10 border border-emerald-500/30 rounded-2xl shadow-lg p-4 flex flex-col gap-4">
+        <div class="flex items-center gap-2 mb-2">
+          <ion-icon name="trophy-outline" class="text-emerald-300 text-xl"></ion-icon>
+          <h2 class="text-lg font-bold text-emerald-300">Ranking de Choferes</h2>
         </div>
-      </div>
-
-      <!-- Pedidos Este Mes -->
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-icon">
-            <ion-icon name="stats-chart-outline"></ion-icon>
-          </div>
-          <div class="stat-info">
-            <h3>Este Mes</h3>
-            <p class="stat-value">{{ pedidosMes || '0' }}</p>
-          </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm text-left text-white">
+            <thead class="bg-emerald-900/60">
+              <tr>
+                <th class="px-4 py-2">Posición</th>
+                <th class="px-4 py-2">Chofer</th>
+                <th class="px-4 py-2">Entregas Completadas</th>
+                <th class="px-4 py-2">Tasa de Éxito</th>
+                <th class="px-4 py-2">Calificación</th>
+              </tr>
+            </thead>
+            <tbody class="bg-emerald-900/40 divide-y divide-emerald-800">
+              <tr *ngFor="let chofer of rankingChoferes; let i = index" class="hover:bg-emerald-800/40 transition">
+                <td class="px-4 py-2 font-mono"><span [class]="'position-' + (i + 1)">{{ i + 1 }}</span></td>
+                <td class="px-4 py-2">{{ chofer.nombre }}</td>
+                <td class="px-4 py-2">{{ chofer.entregasCompletadas }}</td>
+                <td class="px-4 py-2">
+                  <div class="w-full bg-emerald-800 rounded-full h-3 relative">
+                    <div class="bg-emerald-400 h-3 rounded-full absolute top-0 left-0" [style.width]="chofer.tasaExito + '%'"></div>
+                    <span class="absolute left-1/2 -translate-x-1/2 text-xs text-white">{{ chofer.tasaExito }}%</span>
+                  </div>
+                </td>
+                <td class="px-4 py-2">
+                  <div class="flex items-center gap-1">
+                    <ion-icon *ngFor="let star of [1,2,3,4,5]" [name]="star <= chofer.calificacion ? 'star' : 'star-outline'" [class.text-yellow-400]="star <= chofer.calificacion"></ion-icon>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-
-      <!-- Pedidos Este Trimestre -->
-      <div class="stat-card">
-        <div class="stat-content">
-          <div class="stat-icon">
-            <ion-icon name="trending-up-outline"></ion-icon>
-          </div>
-          <div class="stat-info">
-            <h3>Este Trimestre</h3>
-            <p class="stat-value">{{ pedidosTrimestre || '0' }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Gráficos y Estadísticas Detalladas -->
-    <div class="charts-grid">
-      <!-- Estado de Pedidos -->
-      <div class="chart-card">
-        <div class="card-header">
-          <h2>
-            <ion-icon name="pie-chart-outline"></ion-icon>
-            Estado de Pedidos
-          </h2>
-        </div>
-        <div class="card-content">
-          <canvas #estadoPedidosChart></canvas>
-        </div>
-      </div>
-
-      <!-- Distribución por Región -->
-      <div class="chart-card">
-        <div class="card-header">
-          <h2>
-            <ion-icon name="bar-chart-outline"></ion-icon>
-            Entregas por Región
-          </h2>
-        </div>
-        <div class="card-content">
-          <canvas #regionesChart></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Ranking de Choferes -->
-    <div class="ranking-card">
-      <div class="card-header">
-        <h2>
-          <ion-icon name="trophy-outline"></ion-icon>
-          Ranking de Choferes
-        </h2>
-      </div>
-      <div class="table-container">
-        <table class="ranking-table">
-          <thead>
-            <tr>
-              <th>Posición</th>
-              <th>Chofer</th>
-              <th>Entregas Completadas</th>
-              <th>Tasa de Éxito</th>
-              <th>Calificación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let chofer of rankingChoferes; let i = index">
-              <td class="position">
-                <span [class]="'position-' + (i + 1)">{{ i + 1 }}</span>
-              </td>
-              <td>{{ chofer.nombre }}</td>
-              <td>{{ chofer.entregasCompletadas }}</td>
-              <td>
-                <div class="progress-bar">
-                  <div class="progress" [style.width]="chofer.tasaExito + '%'"></div>
-                  <span>{{ chofer.tasaExito }}%</span>
-                </div>
-              </td>
-              <td>
-                <div class="rating">
-                  <ion-icon 
-                    *ngFor="let star of [1,2,3,4,5]" 
-                    [name]="star <= chofer.calificacion ? 'star' : 'star-outline'"
-                    [class.filled]="star <= chofer.calificacion">
-                  </ion-icon>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </main>
-
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="w-full text-center text-xs text-emerald-200 py-3 bg-emerald-950/20 backdrop-blur-lg mt-auto">
     <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
   </footer>
 </div> 

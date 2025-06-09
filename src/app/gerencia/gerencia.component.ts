@@ -23,7 +23,6 @@ interface RankingChofer {
 @Component({
   selector: 'app-gerencia',
   templateUrl: './gerencia.component.html',
-  styleUrls: ['./gerencia.component.scss']
 })
 export class GerenciaComponent implements OnInit, OnDestroy {
   // Referencias a los canvas para los gráficos

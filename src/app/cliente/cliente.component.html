@@ -1,117 +1,96 @@
-<div class="page-container">
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800">
   <!-- Header -->
-  <header class="header">
-    <div class="header-content">
-      <div class="header-left">
-        <img src="assets/images/leaf-logo.png" alt="Ecologistic" class="logo">
-        <div class="header-text">
-          <h1>Ecologistic • Clientes</h1>
-          <p>Transporte ecológico con tecnología avanzada</p>
+  <header class="border-b border-emerald-700/30 bg-emerald-950/20 backdrop-blur-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
+          <ion-icon name="leaf-outline" class="text-white text-2xl"></ion-icon>
         </div>
+        <span class="text-2xl font-bold text-white">Ecologistic • Clientes</span>
       </div>
-      <div class="header-right">
-        <a (click)="irAlInicio()" class="nav-link">
+      <div class="flex items-center gap-3">
+        <a (click)="irAlInicio()" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors cursor-pointer">
           <ion-icon name="home-outline"></ion-icon>
-          Inicio
+          <span class="hidden sm:inline">Inicio</span>
         </a>
-        <button class="nav-link" (click)="logout()">
+        <button class="flex items-center gap-1 text-emerald-400 hover:text-red-400 font-semibold transition-colors" (click)="logout()">
           <ion-icon name="log-out-outline"></ion-icon>
-          Cerrar sesión
+          <span class="hidden sm:inline">Cerrar sesión</span>
         </button>
-        </div>
-        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Content -->
-  <div class="content-container">
-    <!-- Pedidos Activos -->
-    <div class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">
-          <ion-icon name="cube-outline"></ion-icon>
-          Pedidos Activos
-        </h2>
-      </div>
-
-      <div class="pedidos-grid">
-        <ng-container *ngIf="pedidosActivos$ | async as pedidos; else loading">
-          <div *ngIf="pedidos.length === 0" class="empty-state">
-            <ion-icon name="cube-outline" class="pulse-icon"></ion-icon>
-            <p>No tienes pedidos activos en este momento</p>
-            <button class="nuevo-pedido-button" routerLink="/solicitar-despacho">
-              <ion-icon name="add-circle-outline"></ion-icon>
-              Crear Nuevo Pedido
-            </button>
-          </div>
-          
-          <div *ngIf="pedidos.length > 0" class="pedidos-list">
-            <div *ngFor="let pedido of pedidos" class="pedido-card" (click)="copiarYVerDetalle(pedido)">
-              <div class="pedido-header">
-                <span class="numero-seguimiento">
-                  <ion-icon name="barcode-outline"></ion-icon>
-                  {{pedido.numeroSeguimiento}}
-                </span>
-                <span class="estado" [ngClass]="'estado-' + pedido.estado">
-                  <ion-icon name="ellipse"></ion-icon>
-                  {{getEstadoTexto(pedido.estado)}}
-                </span>
-              </div>
-              <div class="pedido-content">
-                <div class="info-row">
+  <main class="flex-1 flex flex-col items-center px-2 py-8">
+    <div class="w-full max-w-4xl mx-auto flex flex-col gap-8">
+      <!-- Pedidos Activos -->
+      <section class="bg-white/10 border border-emerald-500/30 backdrop-blur-lg rounded-2xl shadow-xl p-4 sm:p-8 flex flex-col gap-4">
+        <h2 class="text-2xl font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="cube-outline"></ion-icon>Pedidos Activos</h2>
+        <div>
+          <ng-container *ngIf="pedidosActivos$ | async as pedidos; else loading">
+            <div *ngIf="pedidos.length === 0" class="flex flex-col items-center gap-2 py-8">
+              <ion-icon name="cube-outline" class="text-4xl text-emerald-400 animate-pulse"></ion-icon>
+              <p class="text-emerald-200">No tienes pedidos activos en este momento</p>
+              <button class="mt-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-4 py-2 rounded-lg flex items-center gap-2 transition" routerLink="/solicitar-despacho">
+                <ion-icon name="add-circle-outline"></ion-icon>
+                Crear Nuevo Pedido
+              </button>
+            </div>
+            <div *ngIf="pedidos.length > 0" class="grid md:grid-cols-2 gap-4">
+              <div *ngFor="let pedido of pedidos" class="bg-emerald-900/60 border border-emerald-800 rounded-xl shadow-lg p-4 flex flex-col gap-2 cursor-pointer hover:scale-[1.02] hover:shadow-2xl transition-all" (click)="copiarYVerDetalle(pedido)">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="flex items-center gap-1 text-emerald-200 font-mono"><ion-icon name="barcode-outline"></ion-icon>{{pedido.numeroSeguimiento}}</span>
+                  <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold"
+                    [ngClass]="{
+                      'bg-yellow-500/20 text-yellow-200': pedido.estado === 'pendiente',
+                      'bg-blue-500/20 text-blue-200': pedido.estado === 'en_proceso',
+                      'bg-emerald-500/20 text-emerald-200': pedido.estado === 'en_ruta',
+                      'bg-green-500/20 text-green-200': pedido.estado === 'entregado'
+                    }">
+                    <ion-icon name="ellipse" class="text-xs"></ion-icon>
+                    {{getEstadoTexto(pedido.estado)}}
+                  </span>
+                </div>
+                <div class="flex items-center gap-2 text-white">
                   <ion-icon name="navigate-outline"></ion-icon>
-                  <div class="info-text">
-                    <span>{{pedido.origen.comuna}} → {{pedido.destino.comuna}}</span>
-                  </div>
+                  <span>{{pedido.origen.comuna}} → {{pedido.destino.comuna}}</span>
                 </div>
-                <div class="info-row">
+                <div class="flex items-center gap-2 text-emerald-200">
                   <ion-icon name="calendar-outline"></ion-icon>
-                  <div class="info-text">
-                    <span>{{pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</span>
-                  </div>
+                  <span>{{pedido.fechaCreacion | date:'dd/MM/yyyy HH:mm'}}</span>
                 </div>
-                <div class="info-row">
-                  <ion-icon name="cube-outline" slot="start"></ion-icon>
-                  <ion-label>
-                    <h2>Detalles del Paquete</h2>
-                    <p>
-                      <span>{{pedido.datosPaquete.descripcion || 'Sin descripción'}} - {{pedido.datosPaquete.tamano}}</span>
-                    </p>
-                  </ion-label>
+                <div class="flex items-center gap-2 text-emerald-200">
+                  <ion-icon name="cube-outline"></ion-icon>
+                  <span>{{pedido.datosPaquete.descripcion || 'Sin descripción'}} - {{pedido.datosPaquete.tamano}}</span>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
-        
-        <ng-template #loading>
-          <div class="loading-state">
-            <ion-spinner name="crescent"></ion-spinner>
-            <p>Cargando pedidos...</p>
-          </div>
-        </ng-template>
+          </ng-container>
+          <ng-template #loading>
+            <div class="flex flex-col items-center gap-2 py-8">
+              <ion-spinner name="crescent" class="text-emerald-400"></ion-spinner>
+              <p class="text-emerald-200">Cargando pedidos...</p>
+            </div>
+          </ng-template>
+        </div>
+      </section>
+      <!-- Nuevo Pedido -->
+      <section class="bg-emerald-900/60 border border-emerald-800 rounded-2xl shadow-xl p-4 sm:p-8 flex flex-col items-center gap-4">
+        <h2 class="text-2xl font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="add-circle-outline"></ion-icon>Crear Pedido</h2>
+        <button class="bg-emerald-500 hover:bg-emerald-400 text-white font-semibold px-6 py-3 rounded-xl flex items-center gap-2 text-lg shadow transition" routerLink="/solicitar-despacho">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          Solicitar Nuevo Pedido
+        </button>
+      </section>
+      <!-- Tooltip -->
+      <div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-emerald-900/90 text-white px-4 py-2 rounded shadow-lg z-50 transition-opacity" *ngIf="tooltipVisible" [style.opacity]="tooltipVisible ? 1 : 0">
+        {{tooltipText}}
       </div>
     </div>
-
-    <!-- Nuevo Pedido -->
-    <div class="nuevo-pedido-section">
-      <h2 class="section-title">
-        <ion-icon name="add-circle-outline"></ion-icon>
-        Crear Pedido
-      </h2>
-      <button class="nuevo-pedido-button-full" routerLink="/solicitar-despacho">
-        <ion-icon name="add-circle-outline"></ion-icon>
-        Solicitar Nuevo Pedido
-      </button>
-    </div>
-
-    <!-- Tooltip -->
-    <div class="tooltip" *ngIf="tooltipVisible" [style.opacity]="tooltipVisible ? 1 : 0">
-      {{tooltipText}}
-    </div>
-  </div>
-
+  </main>
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="w-full text-center text-xs text-emerald-200 py-3 bg-emerald-950/20 backdrop-blur-lg mt-auto">
     <p>© 2025 Ecologistic S.A. Todos los derechos reservados.</p>
   </footer>
 </div> 

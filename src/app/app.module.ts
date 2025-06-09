@@ -28,7 +28,6 @@ import { SharedModule } from './shared/shared.module';
     HomeComponent,
     BaseLayoutComponent,
     TrackingComponent,
-    GerenciaComponent,
     AuthComponent
   ],
   imports: [

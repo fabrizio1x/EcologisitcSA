@@ -76,3 +76,6 @@ src/environments/environment.prod.ts
 !src/environments/environment.example.ts
 !src/environments/environment.prod.example.ts
 
+# Archivo de tutorial de comandos git (no subir)
+GIT_COMMANDS_TUTORIAL.txt
+

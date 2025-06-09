@@ -11,7 +11,6 @@ import { COMUNAS_COORDS } from './comunas-coords';
 @Component({
   selector: 'app-chofer',
   templateUrl: './chofer.component.html',
-  styleUrls: ['./chofer.component.scss']
 })
 export class ChoferComponent implements OnInit, OnDestroy {
   pedidos: Pedido[] = [];

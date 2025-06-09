@@ -10,7 +10,6 @@ import { takeUntil, take } from 'rxjs/operators';
 @Component({
   selector: 'app-solicitar-despacho',
   templateUrl: './solicitar-despacho.component.html',
-  styleUrls: ['./solicitar-despacho.component.scss']
 })
 export class SolicitarDespachoComponent implements OnInit, OnDestroy {
   despachoForm: FormGroup = this.initializeForm();

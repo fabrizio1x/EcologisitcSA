@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errorMessage: string = '';
   isLoading: boolean = false;
+  showPassword = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -103,5 +104,9 @@ export class RegisterComponent implements OnInit {
       });
       await toast.present();
     }
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/']);
   }
 } 

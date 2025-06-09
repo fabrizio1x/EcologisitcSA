@@ -12,7 +12,6 @@ import { EstadoPedido } from '../interfaces/pedido.interface';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
   currentUser$: Observable<User | null>;

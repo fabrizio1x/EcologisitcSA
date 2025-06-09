@@ -29,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: 'gerencia',
-    component: GerenciaComponent,
+    loadChildren: () => import('./gerencia/gerencia.module').then(m => m.GerenciaModule),
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['gerencia'] }
   },

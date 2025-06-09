@@ -28,7 +28,8 @@ export class RoleGuard implements CanActivate {
         }
         
         if (!allowedRoles.includes(user.role)) {
-          this.router.navigate(['/inicio']);
+          console.warn('Bloqueado por rol:', user.role, 'Permitidos:', allowedRoles);
+          this.router.navigate(['/']);
           return false;
         }
 

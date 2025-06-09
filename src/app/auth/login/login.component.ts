@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   isLoading = false;
   returnUrl: string = '/';
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,5 +63,13 @@ export class LoginComponent implements OnInit {
     } else {
       await this.toastService.showToast('Por favor, complete todos los campos correctamente', 'warning');
     }
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/']);
+  }
+
+  forgotPassword() {
+    alert('Funcionalidad de recuperación de contraseña próximamente.');
   }
 }

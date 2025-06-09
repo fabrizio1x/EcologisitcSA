@@ -4,7 +4,6 @@ import { CotizacionService, Comuna, Tarifa } from '../services/cotizacion.servic
 @Component({
   selector: 'app-quote-delivery',
   templateUrl: './quote-delivery.component.html',
-  styleUrls: ['./quote-delivery.component.scss']
 })
 export class QuoteDeliveryComponent {
   selectedOrigin: string = '';

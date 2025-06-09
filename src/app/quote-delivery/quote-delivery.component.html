@@ -1,150 +1,151 @@
-<div class="page-container">
-  <header class="header">
-    <div class="logo-section">
-      <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
-      <div class="brand-text">
-        <span class="brand">Ecologistic S.A.</span>
-        <span class="slogan">Transporte ecológico con tecnología avanzada</span>
+<ion-content>
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800">
+  <!-- Header -->
+  <header class="border-b border-emerald-700/30 bg-emerald-950/20 backdrop-blur-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
+          <ion-icon name="leaf-outline" class="text-white text-2xl"></ion-icon>
+        </div>
+        <span class="text-2xl font-bold text-white">EcologisticSA</span>
       </div>
+      <nav>
+        <a routerLink="/" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors">
+          <ion-icon name="home-outline"></ion-icon>
+          <span class="hidden sm:inline">Inicio</span>
+        </a>
+      </nav>
     </div>
-    <nav class="nav-links">
-      <a routerLink="/" class="active">
-        <ion-icon name="home-outline"></ion-icon>
-        Inicio
-      </a>
-    </nav>
   </header>
 
-  <div class="content-container">
-    <div class="quote-section">
-      <h1>Precios con tarifa fija a todo Chile</h1>
-      
-      <div class="location-selectors">
-        <div class="location-field">
-          <label>Origen:</label>
-          <div class="select-container">
-            <select [(ngModel)]="selectedOrigin" (change)="mostrarPrecios = false">
+  <!-- Main Content -->
+  <main class="flex-1 flex justify-center items-center px-2 py-8">
+    <section class="w-full max-w-2xl mx-auto bg-white/10 border border-emerald-500/30 backdrop-blur-lg rounded-2xl shadow-2xl p-4 sm:p-8 flex flex-col gap-6">
+      <h1 class="text-3xl sm:text-4xl font-bold text-center text-white mb-2">Cotiza tu envío</h1>
+      <p class="text-center text-emerald-200 mb-4">Precios con tarifa fija a todo Chile</p>
+      <!-- Selectores de origen y destino -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex-1">
+          <label class="block text-emerald-100 mb-1 font-medium">Origen:</label>
+          <div class="relative">
+            <select [(ngModel)]="selectedOrigin" (change)="mostrarPrecios = false" class="w-full rounded-lg bg-emerald-950/40 border border-emerald-700 text-white px-4 py-2 pr-8 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
               <option value="">Selecciona una comuna</option>
               <optgroup *ngFor="let region of regiones" [label]="region">
-                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
-                  {{comuna.nombre}}
-                </option>
+                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">{{comuna.nombre}}</option>
               </optgroup>
             </select>
-            <ion-icon name="chevron-down-outline"></ion-icon>
           </div>
         </div>
-
-        <div class="location-field">
-          <label>Destino:</label>
-          <div class="select-container">
-            <select [(ngModel)]="selectedDestination" (change)="mostrarPrecios = false">
+        <div class="flex-1">
+          <label class="block text-emerald-100 mb-1 font-medium">Destino:</label>
+          <div class="relative">
+            <select [(ngModel)]="selectedDestination" (change)="mostrarPrecios = false" class="w-full rounded-lg bg-emerald-950/40 border border-emerald-700 text-white px-4 py-2 pr-8 focus:ring-2 focus:ring-emerald-400 focus:outline-none">
               <option value="">Selecciona una comuna</option>
               <optgroup *ngFor="let region of regiones" [label]="region">
-                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
-                  {{comuna.nombre}}
-                </option>
+                <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">{{comuna.nombre}}</option>
               </optgroup>
             </select>
-            <ion-icon name="chevron-down-outline"></ion-icon>
           </div>
         </div>
       </div>
-
-      <button class="quote-button" (click)="calcularCotizacion()" [disabled]="!selectedOrigin || !selectedDestination">
+      <button (click)="calcularCotizacion()" [disabled]="!selectedOrigin || !selectedDestination" class="mt-2 w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-800 text-white font-semibold py-3 rounded-xl shadow-lg transition-all text-lg">
         <ion-icon name="cash-outline"></ion-icon>
         Cotizar
       </button>
 
-      <div class="pricing-info" *ngIf="mostrarPrecios">
-        <div class="distance-info">
+      <!-- Resultados de cotización -->
+      <div *ngIf="mostrarPrecios" class="flex flex-col gap-4">
+        <div class="flex items-center gap-2 text-emerald-300 text-base font-medium justify-center">
           <ion-icon name="map-outline"></ion-icon>
-          <span>Distancia aproximada: {{distancia}} km</span>
+          <span>Distancia aproximada: <span class="font-bold">{{distancia}} km</span></span>
         </div>
-
-        <div class="pricing-tables">
-      <div class="pricing-table">
-            <h2>Punto Ecologistic</h2>
-        <div class="table-container">
-          <div class="table-header">
-                <div class="cell">Tamaño</div>
-                <div class="cell">Precio</div>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <!-- Punto Ecologistic -->
+          <div class="flex-1 bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg">
+            <h2 class="text-lg font-bold text-emerald-300 mb-2">Punto Ecologistic</h2>
+            <div class="divide-y divide-emerald-800">
+              <div class="flex justify-between py-1 font-semibold text-white">
+                <span>Tamaño</span>
+                <span>Precio</span>
               </div>
-              <div class="table-row" *ngIf="preciosPuntoEcologistic">
-                <div class="cell">XS</div>
-                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.xs)}}</div>
+              <div *ngIf="preciosPuntoEcologistic" class="flex justify-between py-1 text-white" >
+                <span>XS</span>
+                <span>{{formatearPrecio(preciosPuntoEcologistic.xs)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosPuntoEcologistic">
-                <div class="cell">S</div>
-                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.s)}}</div>
+              <div *ngIf="preciosPuntoEcologistic" class="flex justify-between py-1 text-white" >
+                <span>S</span>
+                <span>{{formatearPrecio(preciosPuntoEcologistic.s)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosPuntoEcologistic">
-                <div class="cell">M</div>
-                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.m)}}</div>
+              <div *ngIf="preciosPuntoEcologistic" class="flex justify-between py-1 text-white" >
+                <span>M</span>
+                <span>{{formatearPrecio(preciosPuntoEcologistic.m)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosPuntoEcologistic">
-                <div class="cell">L</div>
-                <div class="cell">{{formatearPrecio(preciosPuntoEcologistic.l)}}</div>
+              <div *ngIf="preciosPuntoEcologistic" class="flex justify-between py-1 text-white" >
+                <span>L</span>
+                <span>{{formatearPrecio(preciosPuntoEcologistic.l)}}</span>
               </div>
             </div>
           </div>
-          
-          <div class="pricing-table">
-            <h2>Entrega a Domicilio</h2>
-            <div class="table-container">
-              <div class="table-header">
-                <div class="cell">Tamaño</div>
-                <div class="cell">Precio</div>
+          <!-- Entrega a Domicilio -->
+          <div class="flex-1 bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg">
+            <h2 class="text-lg font-bold text-emerald-300 mb-2">Entrega a Domicilio</h2>
+            <div class="divide-y divide-emerald-800">
+              <div class="flex justify-between py-1 font-semibold text-white">
+                <span>Tamaño</span>
+                <span>Precio</span>
               </div>
-              <div class="table-row" *ngIf="preciosDomicilio">
-                <div class="cell">XS</div>
-                <div class="cell">{{formatearPrecio(preciosDomicilio.xs)}}</div>
+              <div *ngIf="preciosDomicilio" class="flex justify-between py-1 text-white" >
+                <span>XS</span>
+                <span>{{formatearPrecio(preciosDomicilio.xs)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosDomicilio">
-                <div class="cell">S</div>
-                <div class="cell">{{formatearPrecio(preciosDomicilio.s)}}</div>
+              <div *ngIf="preciosDomicilio" class="flex justify-between py-1 text-white" >
+                <span>S</span>
+                <span>{{formatearPrecio(preciosDomicilio.s)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosDomicilio">
-                <div class="cell">M</div>
-                <div class="cell">{{formatearPrecio(preciosDomicilio.m)}}</div>
+              <div *ngIf="preciosDomicilio" class="flex justify-between py-1 text-white" >
+                <span>M</span>
+                <span>{{formatearPrecio(preciosDomicilio.m)}}</span>
               </div>
-              <div class="table-row" *ngIf="preciosDomicilio">
-                <div class="cell">L</div>
-                <div class="cell">{{formatearPrecio(preciosDomicilio.l)}}</div>
+              <div *ngIf="preciosDomicilio" class="flex justify-between py-1 text-white" >
+                <span>L</span>
+                <span>{{formatearPrecio(preciosDomicilio.l)}}</span>
               </div>
-          </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <button class="size-help-button" (click)="toggleEjemplos()">
+      <!-- Botón ayuda tallas -->
+      <button (click)="toggleEjemplos()" class="w-full flex items-center justify-center gap-2 bg-emerald-800/80 hover:bg-emerald-700/80 text-emerald-200 font-medium py-2 rounded-xl shadow transition-all">
         <ion-icon name="help-circle-outline"></ion-icon>
         No sé qué talla es mi envío
       </button>
 
-      <div class="size-examples" *ngIf="mostrarEjemplos">
-        <div class="example-card" *ngFor="let size of ['xs', 's', 'm', 'l']">
-          <div class="example-image">
-            <div class="size-icons">
-              <span>{{ejemplosTamanos[size].icono.split(' ')[0]}}</span>
-              <span>{{ejemplosTamanos[size].icono.split(' ')[1]}}</span>
-            </div>
-            <div class="size-badge">{{size.toUpperCase()}}</div>
+      <!-- Ejemplos de tallas -->
+      <div *ngIf="mostrarEjemplos" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+        <div *ngFor="let size of ['xs', 's', 'm', 'l']" class="bg-white/10 rounded-xl p-3 flex flex-col items-center border border-emerald-800 shadow">
+          <div class="flex flex-col items-center mb-2">
+            <div class="text-3xl">{{ejemplosTamanos[size].icono.split(' ')[0]}} {{ejemplosTamanos[size].icono.split(' ')[1]}}</div>
+            <span class="bg-emerald-800 text-emerald-200 text-xs font-bold px-2 py-0.5 rounded mt-1">{{size.toUpperCase()}}</span>
           </div>
-          <div class="example-content">
-            <h3>{{ejemplosTamanos[size].descripcion}}</h3>
-            <p class="weight">{{ejemplosTamanos[size].peso}}</p>
+          <div class="text-center">
+            <h3 class="font-semibold text-base text-white">{{ejemplosTamanos[size].descripcion}}</h3>
+            <p class="text-xs text-emerald-300">{{ejemplosTamanos[size].peso}}</p>
           </div>
         </div>
       </div>
 
-      <button class="send-now-button" routerLink="/cliente/nuevo-pedido" *ngIf="mostrarPrecios">
+      <!-- Botón enviar ahora -->
+      <button routerLink="/cliente/nuevo-pedido" *ngIf="mostrarPrecios" class="w-full flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-white font-semibold py-3 rounded-xl shadow-lg transition-all mt-2 text-lg">
         <ion-icon name="paper-plane-outline"></ion-icon>
         Quiero enviar ahora
       </button>
-    </div>
-  </div>
-  <footer class="footer">
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full text-center text-xs text-emerald-200 py-3 bg-emerald-950/20 backdrop-blur-lg mt-auto">
     © 2025 Ecologistic S.A. Todos los derechos reservados.
   </footer>
-</div> 
+</div>
+</ion-content>

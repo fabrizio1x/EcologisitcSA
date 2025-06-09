@@ -1,251 +1,180 @@
-<div class="page-container">
-  <header class="header">
-    <div class="logo-section">
-      <img src="assets/images/leaf-logo.png" alt="Ecologistic Logo" class="logo">
-      <div class="brand-text">
-        <span class="brand">Ecologistic S.A.</span>
-        <span class="slogan">Transporte ecológico con tecnología avanzada</span>
+<ion-content>
+<div class="min-h-screen flex flex-col bg-gradient-to-br from-emerald-950 via-green-900 to-emerald-800">
+  <!-- Header -->
+  <header class="border-b border-emerald-700/30 bg-emerald-950/20 backdrop-blur-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-emerald-500 rounded-xl flex items-center justify-center">
+          <ion-icon name="leaf-outline" class="text-white text-2xl"></ion-icon>
+        </div>
+        <span class="text-2xl font-bold text-white">EcologisticSA</span>
       </div>
+      <nav>
+        <a routerLink="/" class="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-semibold transition-colors">
+          <ion-icon name="home-outline"></ion-icon>
+          <span class="hidden sm:inline">Inicio</span>
+        </a>
+      </nav>
     </div>
-    <nav class="nav-links">
-      <a routerLink="/" class="active">
-        <ion-icon name="home-outline"></ion-icon>
-        Inicio
-      </a>
-    </nav>
   </header>
 
-  <div class="content-container">
-    <div class="form-section">
-      <h1>Solicitar Despacho</h1>
-      
-      <form [formGroup]="despachoForm" (ngSubmit)="onSubmit()" class="despacho-form">
+  <!-- Main Content -->
+  <main class="flex-1 flex justify-center items-center px-2 py-8">
+    <section class="w-full max-w-2xl mx-auto bg-white/10 border border-emerald-500/30 backdrop-blur-lg rounded-2xl shadow-2xl p-4 sm:p-8 flex flex-col gap-6">
+      <h1 class="text-3xl sm:text-4xl font-bold text-center text-white mb-2">Solicitar Despacho</h1>
+      <form [formGroup]="despachoForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
         <!-- Alerta de campos faltantes -->
-        <div class="campos-faltantes" *ngIf="camposFaltantes.length > 0">
-          <h4>
+        <div *ngIf="camposFaltantes.length > 0" class="bg-amber-500/10 border border-amber-400/40 text-amber-200 rounded-lg p-4 flex flex-col gap-2">
+          <h4 class="flex items-center gap-2 font-semibold">
             <ion-icon name="warning-outline"></ion-icon>
             Campos pendientes por completar:
           </h4>
-          <ul>
+          <ul class="list-disc list-inside text-amber-100">
             <li *ngFor="let campo of camposFaltantes">{{campo}}</li>
           </ul>
         </div>
-        
         <!-- Datos Personales -->
-        <div class="form-card" formGroupName="datosPersonales">
-          <h2>
-            <ion-icon name="person-outline"></ion-icon>
-            Datos Personales
-          </h2>
-          
-          <div class="form-group">
-            <label>
-              <ion-icon name="person"></ion-icon>
-              Nombre completo
-            </label>
-            <input type="text" formControlName="nombre" placeholder="Ingrese su nombre completo">
-            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.nombre')?.touched && despachoForm.get('datosPersonales.nombre')?.invalid">
-              {{getErrorMessage(despachoForm.get('datosPersonales.nombre'), 'nombre')}}
-            </span>
+        <div class="bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg flex flex-col gap-4" formGroupName="datosPersonales">
+          <h2 class="text-lg font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="person-outline"></ion-icon>Datos Personales</h2>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="person"></ion-icon>Nombre completo</label>
+            <input type="text" formControlName="nombre" placeholder="Ingrese su nombre completo" class="input-tw" />
+            <span class="text-xs text-red-400" *ngIf="despachoForm.get('datosPersonales.nombre')?.touched && despachoForm.get('datosPersonales.nombre')?.invalid">{{getErrorMessage(despachoForm.get('datosPersonales.nombre'), 'nombre')}}</span>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="mail"></ion-icon>
-              Correo Electrónico
-            </label>
-            <input type="email" formControlName="email" placeholder="correo@ejemplo.com">
-            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.email')?.touched && despachoForm.get('datosPersonales.email')?.invalid">
-              {{getErrorMessage(despachoForm.get('datosPersonales.email'), 'email')}}
-            </span>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="mail"></ion-icon>Correo Electrónico</label>
+            <input type="email" formControlName="email" placeholder="correo@ejemplo.com" class="input-tw" />
+            <span class="text-xs text-red-400" *ngIf="despachoForm.get('datosPersonales.email')?.touched && despachoForm.get('datosPersonales.email')?.invalid">{{getErrorMessage(despachoForm.get('datosPersonales.email'), 'email')}}</span>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="call"></ion-icon>
-              Teléfono
-            </label>
-            <input type="tel" formControlName="telefono" placeholder="987654321">
-            <span class="helper-text">Ingrese un número de teléfono de 9 dígitos para contacto</span>
-            <span class="error-message" *ngIf="despachoForm.get('datosPersonales.telefono')?.touched && despachoForm.get('datosPersonales.telefono')?.invalid">
-              {{getErrorMessage(despachoForm.get('datosPersonales.telefono'), 'teléfono')}}
-            </span>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="call"></ion-icon>Teléfono</label>
+            <input type="tel" formControlName="telefono" placeholder="987654321" class="input-tw" />
+            <span class="text-xs text-emerald-300">Ingrese un número de teléfono de 9 dígitos para contacto</span>
+            <span class="text-xs text-red-400" *ngIf="despachoForm.get('datosPersonales.telefono')?.touched && despachoForm.get('datosPersonales.telefono')?.invalid">{{getErrorMessage(despachoForm.get('datosPersonales.telefono'), 'teléfono')}}</span>
           </div>
         </div>
-
         <!-- Dirección de Retiro -->
-        <div class="form-card" formGroupName="direccionRetiro">
-          <h2>
-            <ion-icon name="location-outline"></ion-icon>
-            Dirección de Retiro
-          </h2>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>
-                <ion-icon name="map"></ion-icon>
-                Región
-              </label>
-              <select formControlName="region" class="custom-select">
+        <div class="bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg flex flex-col gap-4" formGroupName="direccionRetiro">
+          <h2 class="text-lg font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="location-outline"></ion-icon>Dirección de Retiro</h2>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="map"></ion-icon>Región</label>
+              <select formControlName="region" class="input-tw">
                 <option value="" disabled selected>Seleccione una región</option>
                 <option *ngFor="let region of regiones" [value]="region">{{region}}</option>
               </select>
             </div>
-
-            <div class="form-group">
-              <label>
-                <ion-icon name="location"></ion-icon>
-                Comuna
-              </label>
-              <select formControlName="comuna" class="custom-select">
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="location"></ion-icon>Comuna</label>
+              <select formControlName="comuna" class="input-tw">
                 <option value="" disabled selected>Seleccione una comuna</option>
-                <option *ngFor="let comuna of getComunas(despachoForm.get('direccionRetiro.region')?.value)" 
-                        [value]="comuna.nombre">{{comuna.nombre}}</option>
+                <option *ngFor="let comuna of getComunas(despachoForm.get('direccionRetiro.region')?.value)" [value]="comuna.nombre">{{comuna.nombre}}</option>
               </select>
             </div>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="home"></ion-icon>
-              Dirección
-            </label>
-            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa">
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="home"></ion-icon>Dirección</label>
+            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa" class="input-tw" />
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="information-circle"></ion-icon>
-              Referencias (opcional)
-            </label>
-            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación"></textarea>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="information-circle"></ion-icon>Referencias (opcional)</label>
+            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación" class="input-tw"></textarea>
           </div>
         </div>
-
         <!-- Dirección de Entrega -->
-        <div class="form-card" formGroupName="direccionEntrega">
-          <h2>
-            <ion-icon name="location-outline"></ion-icon>
-            Dirección de Entrega
-          </h2>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label>Región</label>
-              <select formControlName="region">
+        <div class="bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg flex flex-col gap-4" formGroupName="direccionEntrega">
+          <h2 class="text-lg font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="location-outline"></ion-icon>Dirección de Entrega</h2>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="text-emerald-100">Región</label>
+              <select formControlName="region" class="input-tw">
                 <option value="">Seleccione una región</option>
                 <option *ngFor="let region of regiones" [value]="region">{{region}}</option>
               </select>
             </div>
-
-            <div class="form-group">
-              <label>Comuna</label>
-              <select formControlName="comuna">
+            <div class="flex-1 flex flex-col gap-2">
+              <label class="text-emerald-100">Comuna</label>
+              <select formControlName="comuna" class="input-tw">
                 <option value="">Selecciona una comuna</option>
                 <optgroup *ngFor="let region of regiones" [label]="region">
-                  <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">
-                    {{comuna.nombre}}
-                  </option>
+                  <option *ngFor="let comuna of comunasPorRegion[region]" [value]="comuna.nombre">{{comuna.nombre}}</option>
                 </optgroup>
               </select>
             </div>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="home"></ion-icon>
-              Dirección
-            </label>
-            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa">
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="home"></ion-icon>Dirección</label>
+            <input type="text" formControlName="direccion" placeholder="Ingrese la dirección completa" class="input-tw" />
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="information-circle"></ion-icon>
-              Referencias (opcional)
-            </label>
-            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación"></textarea>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="information-circle"></ion-icon>Referencias (opcional)</label>
+            <textarea formControlName="referencias" placeholder="Agregue referencias para facilitar la ubicación" class="input-tw"></textarea>
           </div>
         </div>
-
         <!-- Datos del Paquete -->
-        <div class="form-card" formGroupName="datosPaquete">
-          <h2>
-            <ion-icon name="cube-outline"></ion-icon>
-            Datos del Paquete
-          </h2>
-
-          <div class="tamano-selector">
-            <label>Tamaño del paquete</label>
-            <div class="tamano-options">
-              <div *ngFor="let tamano of tamanoPaquetes" 
-                   class="tamano-option" 
-                   [class.selected]="despachoForm.get('datosPaquete.tamano')?.value === tamano.id"
-                   (click)="despachoForm.get('datosPaquete.tamano')?.setValue(tamano.id)">
-                <span class="tamano-icon">{{tamano.icono}}</span>
-                <h3>{{tamano.nombre}}</h3>
-                <p>{{tamano.descripcion}}</p>
+        <div class="bg-emerald-900/60 rounded-xl p-4 border border-emerald-800 shadow-lg flex flex-col gap-4" formGroupName="datosPaquete">
+          <h2 class="text-lg font-bold text-emerald-300 flex items-center gap-2 mb-2"><ion-icon name="cube-outline"></ion-icon>Datos del Paquete</h2>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100">Tamaño del paquete</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div *ngFor="let tamano of tamanoPaquetes" (click)="despachoForm.get('datosPaquete.tamano')?.setValue(tamano.id)" [class.bg-emerald-700]="despachoForm.get('datosPaquete.tamano')?.value === tamano.id" class="cursor-pointer bg-white/10 rounded-xl p-3 flex flex-col items-center border border-emerald-800 shadow hover:bg-emerald-800/60 transition-all select-none">
+                <span class="text-3xl">{{tamano.icono}}</span>
+                <h3 class="font-semibold text-base text-white">{{tamano.nombre}}</h3>
+                <p class="text-xs text-emerald-300">{{tamano.descripcion}}</p>
               </div>
             </div>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="scale"></ion-icon>
-              Peso (Kg)
-            </label>
-            <input type="number" formControlName="peso" placeholder="Ingrese el peso en kilogramos" step="0.1">
-            <span class="error-message" *ngIf="despachoForm.get('datosPaquete.peso')?.touched && despachoForm.get('datosPaquete.peso')?.invalid">
-              {{getErrorMessage(despachoForm.get('datosPaquete.peso'), 'peso')}}
-            </span>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="scale"></ion-icon>Peso (Kg)</label>
+            <input type="number" formControlName="peso" placeholder="Ingrese el peso en kilogramos" step="0.1" class="input-tw" />
+            <span class="text-xs text-red-400" *ngIf="despachoForm.get('datosPaquete.peso')?.touched && despachoForm.get('datosPaquete.peso')?.invalid">{{getErrorMessage(despachoForm.get('datosPaquete.peso'), 'peso')}}</span>
           </div>
-
-          <div class="form-group">
-            <label>
-              <ion-icon name="document-text"></ion-icon>
-              Descripción del contenido
-            </label>
-            <textarea formControlName="descripcion" placeholder="Describa el contenido del paquete"></textarea>
+          <div class="flex flex-col gap-2">
+            <label class="text-emerald-100 flex items-center gap-2"><ion-icon name="document-text"></ion-icon>Descripción del contenido</label>
+            <textarea formControlName="descripcion" placeholder="Describa el contenido del paquete" class="input-tw"></textarea>
           </div>
-
-          <div class="form-row checkboxes">
-            <div class="checkbox-group">
-              <label>
-                <input type="checkbox" formControlName="fragil">
-                <span>Frágil</span>
-                <ion-icon name="warning"></ion-icon>
-              </label>
-            </div>
-
-            <div class="checkbox-group">
-              <label>
-                <input type="checkbox" formControlName="requiereEmbalaje">
-                <span>Requiere embalaje</span>
-                <ion-icon name="cube"></ion-icon>
-              </label>
-            </div>
+          <div class="flex flex-row gap-4">
+            <label class="flex items-center gap-2 text-emerald-100">
+              <input type="checkbox" formControlName="fragil" class="accent-emerald-500" />
+              <span>Frágil</span>
+              <ion-icon name="warning"></ion-icon>
+            </label>
+            <label class="flex items-center gap-2 text-emerald-100">
+              <input type="checkbox" formControlName="requiereEmbalaje" class="accent-emerald-500" />
+              <span>Requiere embalaje</span>
+              <ion-icon name="cube"></ion-icon>
+            </label>
           </div>
         </div>
-
-        <button type="submit" class="submit-button" [class.not-authenticated]="!currentUser">
+        <button type="submit" [class.bg-emerald-500]="currentUser" [class.bg-emerald-800]="!currentUser" class="w-full flex items-center justify-center gap-2 text-white font-semibold py-3 rounded-xl shadow-lg transition-all text-lg mt-2">
           <ion-icon [name]="currentUser ? 'paper-plane' : 'log-in'"></ion-icon>
           {{ currentUser ? 'Solicitar Despacho' : 'Iniciar Sesión para Continuar' }}
         </button>
-
         <!-- Progreso del formulario -->
-        <div class="form-progress">
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="(despachoForm.valid ? 100 : 0)"></div>
+        <div class="flex flex-col gap-2 items-center mt-2">
+          <div class="w-full h-2 bg-emerald-800/40 rounded-full overflow-hidden">
+            <div class="h-full bg-emerald-400 transition-all" [style.width.%]="(despachoForm.valid ? 100 : 0)"></div>
           </div>
-          <span class="progress-text">
-            {{despachoForm.valid ? 'Formulario completo' : 'Complete todos los campos requeridos'}}
-          </span>
+          <span class="text-xs text-emerald-200">{{despachoForm.valid ? 'Formulario completo' : 'Complete todos los campos requeridos'}}</span>
         </div>
       </form>
-    </div>
-  </div>
-
-  <footer class="footer">
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer class="w-full text-center text-xs text-emerald-200 py-3 bg-emerald-950/20 backdrop-blur-lg mt-auto">
     © 2025 Ecologistic S.A. Todos los derechos reservados.
   </footer>
-</div> 
+</div>
+<!-- Tailwind input style helper -->
+<style>
+.input-tw {
+  @apply bg-transparent border border-emerald-700 text-white px-4 py-2 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:outline-none w-full placeholder:text-emerald-200/70;
+  background-color: transparent !important;
+  color: #fff !important;
+}
+select.input-tw, textarea.input-tw {
+  background-color: transparent !important;
+  color: #fff !important;
+}
+</style> 
+</ion-content>

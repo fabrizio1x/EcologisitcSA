@@ -7,7 +7,6 @@ import * as L from 'leaflet';
 @Component({
   selector: 'app-tracking',
   templateUrl: './tracking.component.html',
-  styleUrls: ['./tracking.component.scss']
 })
 export class TrackingComponent implements OnInit {
   trackingNumber: string = '';

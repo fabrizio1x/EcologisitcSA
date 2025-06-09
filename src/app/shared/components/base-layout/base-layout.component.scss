@@ -4,11 +4,6 @@
   flex-direction: column;
   background: linear-gradient(180deg, #003828 0%, #001a12 100%);
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .content {
@@ -16,5 +11,4 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-y: auto;
 } 

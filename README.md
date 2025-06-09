@@ -5,7 +5,7 @@
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
-App logística desarrollada con **Angular**, **Ionic** y **Firebase**.
+App logística desarrollada con **Angular**, **Ionic**, **Firebase** y **Tailwind**.
 
 ## 🚚 Descripción
 **EcologisticSA** es una plataforma móvil y web para la gestión de pedidos y logística, con roles como chofer, secretaria y cliente. Permite asignar, visualizar y gestionar pedidos de manera eficiente y segura.

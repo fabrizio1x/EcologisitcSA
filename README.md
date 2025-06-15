@@ -36,10 +36,6 @@ App logística desarrollada con **Angular**, **Ionic**, **Firebase** y **Tailwin
 - Seguridad y protección de datos.
 - Navegación y acceso dinámico según el rol del usuario.
 
-## 🖼️ Screenshots
-
-A continuación, algunas capturas de la aplicación:
-
 ## ⚡ Instalación rápida
 
 1. **Clona el repositorio:**

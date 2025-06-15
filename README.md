@@ -36,6 +36,9 @@ App logística desarrollada con **Angular**, **Ionic**, **Firebase** y **Tailwin
 - Seguridad y protección de datos.
 - Navegación y acceso dinámico según el rol del usuario.
 
+## 🖼️ Screenshots
+
+A continuación, algunas capturas de la aplicación:
 
 ## ⚡ Instalación rápida
 
@@ -72,6 +75,28 @@ Para producción:
 ```sh
 ionic build --prod
 ```
+
+## 🖼️ Screenshots
+
+A continuación, algunas capturas de la aplicación:
+
+<p align="center">
+  <img src="src/assets/Inicio1.png" alt="Inicio 1" width="300"/>
+  <img src="src/assets/Inicio2.png" alt="Inicio 2" width="300"/>
+  <img src="src/assets/Inicio3.png" alt="Inicio 3" width="300"/>
+  <img src="src/assets/Inicio4.png" alt="Inicio 4" width="300"/>
+  <img src="src/assets/InicioSesion.png" alt="Inicio de Sesión" width="300"/>
+  <img src="src/assets/Registro.png" alt="Registro" width="300"/>
+  <img src="src/assets/Cotizar1.png" alt="Cotizar 1" width="300"/>
+  <img src="src/assets/Cotizar2.png" alt="Cotizar 2" width="300"/>
+  <img src="src/assets/SolicitarDespacho1.png" alt="Solicitar Despacho 1" width="300"/>
+  <img src="src/assets/SolicitarDespacho2.png" alt="Solicitar Despacho 2" width="300"/>
+  <img src="src/assets/Seguimiento.png" alt="Seguimiento de Pedidos" width="300"/>
+  <img src="src/assets/VistaCliente.png" alt="Panel de Cliente" width="300"/>
+  <img src="src/assets/VistaChofer.png" alt="Panel de Chofer" width="300"/>
+  <img src="src/assets/VistaSecretaria.png" alt="Panel de Secretaria" width="300"/>
+  <img src="src/assets/VistaGerencia.png" alt="Panel de Gerencia" width="300"/>
+</p>
 
 ## 🤝 Contribuciones
 ¡Las contribuciones son bienvenidas! Por favor, abre un issue o un pull request para sugerencias o mejoras. Consulta la [guía de contribución](CONTRIBUTING.md).
